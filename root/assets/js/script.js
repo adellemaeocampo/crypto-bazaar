@@ -5,6 +5,9 @@ const NFTsLimit = 5;
 // https://api.opensea.io/api/v2/chain/{chain}/contract/{address}/nfts/{identifier}
 const getNFTByContractURL = "https://api.opensea.io/api/v2/chain/";
 
+// https://api.opensea.io/api/v2/offers/collection/{collection_slug}/nfts/{identifier}/best
+const getPriceOfNFTURL = "https://api.opensea.io/api/v2/offers/collection/"
+
 // Object: wallet keep track of NFTs and Coins which are the list of NFTs and coins in the wallet save to localstorage
 var wallet = {
   coins : [],
@@ -12,11 +15,12 @@ var wallet = {
 
 //  // element of NFTs
 //   NFT = {
-//     identifier = "",
-//     collection = "",
-//     contract = "",
-//     token_standard = "",
-//     dayPurchased = "",
+//     identifier : "",
+//     collection : "",
+//     contract : "",
+//     token_standard : "",
+//     name : "",
+//     dayPurchased : "",
 //   }
 
   // _checkDuplicate: check if the NFT has been existed in the NFTs, return index of found duplicate or -1 if not found.
@@ -71,7 +75,7 @@ var wallet = {
 // getNFTsByCollection request API https://api.opensea.io/api/v2/collections/{collection_slug}
 // 
 function getNFTsByCollection(collection, limit) {
-    const options = {method: 'GET', headers: {accept: 'application/json'}};
+    const options = {method: 'GET', headers: {accept: 'application/json', 'x-api-key': '0c9e93e867e640e081971469d0447097'}};
     const url = getNFTsByCollectionURL + collection + "/nfts?limit=" + limit;
 
     fetch(url, options)
@@ -82,7 +86,7 @@ function getNFTsByCollection(collection, limit) {
 
 // getNFTsByContract request API https://api.opensea.io/api/v2/chain/{chain}/contract/{address}/nfts/{identifier}
 function getNFTByContract(chain, address, identifier) {
-    const options = {method: 'GET', headers: {accept: 'application/json'}};
+    const options = {method: 'GET', headers: {accept: 'application/json', 'x-api-key': '0c9e93e867e640e081971469d0447097'}};
     const url = getNFTByContractURL + chain + "/contract/" + address + "/nfts/" + identifier;
 
     fetch(url, options)
@@ -91,3 +95,13 @@ function getNFTByContract(chain, address, identifier) {
     .catch(err => console.error(err));
 }
 
+// 
+function getPriceOfNFT(collection, identifier) {
+    const options = {method: 'GET', headers: {accept: 'application/json', 'x-api-key': '0c9e93e867e640e081971469d0447097'}};
+    const url = getPriceOfNFTURL + collection + "/nfts/" + identifier + "/best";
+
+    fetch('url', options)
+    .then(response => response.json())
+    .then(response => console.log(response))
+    .catch(err => console.error(err));
+}

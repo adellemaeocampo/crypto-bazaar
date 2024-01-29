@@ -123,15 +123,27 @@ function getCollectionRankingByVolume() {
     return response.json();
   })
   .then(function (data) {
-    for (let index = 0; index < data.length; index++) {
-      const element = data[index];
-      nftCollectionsRankingByVolume[index].contract_address = element.contract_address;
-      nftCollectionsRankingByVolume[index].contract_name = element.contract_name;
-      nftCollectionsRankingByVolume[index].logo_url = element.logo_url;
-      nftCollectionsRankingByVolume[index].items_total = element.items_total;
-      nftCollectionsRankingByVolume[index].volume_1d = element.volume_1d;
-      nftCollectionsRankingByVolume[index].volume_change_1d = element.volume_change_1d;
-      nftCollectionsRankingByVolume[index].market_cap = element.market_cap;
+    console.log(data.data);
+    for (let index = 0; index < data.data.length; index++) {
+      const element = data.data[index];
+      console.log(element);
+      var collection = {
+        contract_address : element.contract_address,
+        contract_name : element.contract_name,
+        logo_url : element.logo_url,
+        items_total : element.items_total,
+        volume_1d : element.volume_1d,
+        volume_change_1d : element.volume_change_1d,
+        market_cap : element.market_cap,
+      };
+
+      nftCollectionsRankingByVolume.push(collection);
     };
   });
 };
+
+function init() {
+  getCollectionRankingByVolume();
+};
+
+init();

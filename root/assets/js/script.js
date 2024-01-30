@@ -12,6 +12,7 @@ const getPriceOfNFTURL = "https://api.opensea.io/api/v2/listings/collection/"
 const nftCollectionRankingEl = document.getElementById("nft");
 const walletEl = document.getElementById("wallet");
 
+
 // Global variables
 var nftCollectionsRankingByVolume = [];
 var nft = {

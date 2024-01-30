@@ -13,3 +13,11 @@
     opacity: 75%;
     transition: all 0.3s ease 0s;
 }
+
+.bg-image {
+    background-image: url("../../assets/images/henry-chen-x7clQSWhlfE-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center bottom 200px;
+}

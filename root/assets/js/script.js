@@ -6,11 +6,14 @@ const NFTsLimit = 5;
 const getNFTByContractURL = "https://api.opensea.io/api/v2/chain/";
 
 // https://api.opensea.io/api/v2/listings/collection/{collection_slug}/nfts/{identifier}/best
-const getPriceOfNFTURL = "https://api.opensea.io/api/v2/listings/collection/"
+const getPriceOfNFTURL = "https://api.opensea.io/api/v2/offers/collection/"
 
 // Elements
 const nftCollectionRankingEl = document.getElementById("nft");
 const walletEl = document.getElementById("wallet");
+const nft1 = document.getElementById("nft-1");
+const nft2 = document.getElementById("nft-2");
+const nft3 = document.getElementById("nft-3");
 
 // Global variables
 var nftCollectionsRankingByVolume = [];
@@ -171,11 +174,11 @@ function renderPrice(el, collection, id) {
     return response.json();
   })
   .then(function (data) {
-    // console.log(data);
-    // console.log(el);
+    console.log(data);
+    console.log(el);
     // return price data to global variable currentNFTPrice
     if (typeof data.price != "undefined") {
-      el.textContent = data.price.current.value/Math.pow(10, data.price.current.decimals) + " " + data.price.current.currency;      
+      el.textContent = data.price.value/Math.pow(10, data.price.decimals) + " " + data.price.currency;      
     } else {
       el.textContent = "";
     }
@@ -221,28 +224,83 @@ function renderTop3CollectionRankingByVolumeIn1Day() {
       h32El.textContent = element.contract_name;
       section2El.appendChild(h32El);
       collectionEl.appendChild(section2El);
-      // console.log(element);
-      // var collection = {
-      //   contract_address : element.contract_address,
-      //   contract_name : element.contract_name,
-      //   logo_url : element.logo_url,
-      //   items_total : element.items_total,
-      //   volume_1d : element.volume_1d,
-      //   volume_change_1d : element.volume_change_1d,
-      //   market_cap : element.market_cap,
-      // };
-
-      // nftCollectionsRankingByVolume.push(collection);
+      
+      render10NFTs(nft1);
+      render10NFTs(nft2);
+      render10NFTs(nft3);
     };
   });
 };
 
-// render NFT collection
-function renderNFTPage() {
-  //render top 3 collections ranking by volume in 1 day
-  renderTop3CollectionRankingByVolumeIn1Day();
-  //render 10NFTs for each collection
+// render 10 NFTs for each collection
+function render10NFTs(el) {
+  // get 10 NFTs
+  // var nft1 = document.getElementById("nft-1");
+  var contract = el.getAttribute("data-contract");
+  const options = {method: 'GET', headers: {accept: 'application/json', 'x-api-key': '0c9e93e867e640e081971469d0447097'}};
+    var url = 'https://api.opensea.io/api/v2/chain/ethereum/contract/' + contract + "/nfts?limit=" + 10;
+
+    fetch(url, options)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data.nfts);
+      // render 10 NFTs
+      for (let index = 0; index < data.nfts.length; index++) {
+        const element = data.nfts[index];
+        var nftEl = document.createElement('section');
+        //nftWalletEl.appendChild(nftEl);
+        // console.log(nftEl);
+        nftEl.classList = 'container flex flex-row gap-2';
+        nftEl.setAttribute("data-contract", element.contract);
+        nftEl.setAttribute("data-identifier", element.identifier);
+        nftEl.setAttribute("data-token_standard", element.token_standard);
+        el.appendChild(nftEl);
+
+        //
+        var section1El = document.createElement('section');
+        var h31El = document.createElement('h3');
+        section1El.classList = 'container flex bg-cyan-100';
+        h31El.textContent = element.name + " #" + element.identifier;
+        section1El.appendChild(h31El);
+        nftEl.appendChild(section1El);
+
+        // //
+        // var section2El = document.createElement('section');
+        // var h32El = document.createElement('h3');
+        // section2El.classList = 'container flex bg-red-100';
+        // h32El.textContent = element.collection;
+        // section2El.appendChild(h32El);
+        // nftEl.appendChild(section2El);
+
+        //
+        var section3El = document.createElement('section');
+        var h33El = document.createElement('h3');
+        section3El.classList = 'container flex bg-yellow-100';
+        renderPrice(h33El, element.collection, element.identifier);
+        section3El.appendChild(h33El);
+        nftEl.appendChild(section3El);
+
+        //
+        var section4El = document.createElement('section');
+        var imgEl = document.createElement('img');
+        section4El.classList = 'container flex bg-green-100';
+        imgEl.src = element.image_url;
+        imgEl.style.width = "37px";
+        section4El.appendChild(imgEl);
+        nftEl.appendChild(section4El);
+      };
+    });
+  
 }
+// // render NFT collection
+// function renderNFTPage() {
+//   //render top 3 collections ranking by volume in 1 day
+//   renderTop3CollectionRankingByVolumeIn1Day();
+//   //render 10NFTs for each collection
+// }
+
 // renderNFTwallet render the list of NFT from the object wallet.
 function renderNFTwallet() {
   // get NFT wallet El

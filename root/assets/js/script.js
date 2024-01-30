@@ -27,6 +27,7 @@ var nft = {
     "decimals": 0,
     "value": "",
   },
+  image_url : "",
 };
 var currentNFTPrice = {
   "currency": "",
@@ -53,6 +54,7 @@ var wallet = {
 //        "decimals": 0,
 //        "value": "",
 //      },
+//     image_url : "",
 //   }
 
   // _checkDuplicate: check if the NFT has been existed in the NFTs, return index of found duplicate or -1 if not found.
@@ -294,10 +296,10 @@ function renderNFTwallet() {
 
     //
     var section4El = document.createElement('section');
-    var h34El = document.createElement('h3');
+    var imgEl = document.createElement('img');
     section4El.classList = 'container flex bg-green-100';
-    h34El.textContent = "Graph";
-    section4El.appendChild(h34El);
+    imgEl.src = element.image_url;
+    section4El.appendChild(imgEl);
     nftEl.appendChild(section4El);
   };
 
@@ -318,6 +320,7 @@ function init() {
     name : "BAGC #7522",
     price : {currency: '', decimals: 0, value: ''},
     token_standard : "erc721",
+    image_url : "https://bagc-resource.s3.ap-northeast-2.amazonaws.com/images/bagc/7522.png",
   }
   wallet.saveNFT(nft);
   
@@ -329,6 +332,7 @@ function init() {
     name : "souls_are_NFTs",
     price : {currency: '', decimals: 0, value: ''},
     token_standard : "erc1155",
+    image_url : "https://ipfs.daonomic.com/ipfs/QmfLfovcq2QKy4SpBLvrtNWSUqdf7DUhXB8BgZv8wcazL4",
   };
   wallet.saveNFT(nft);
   

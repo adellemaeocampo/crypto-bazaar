@@ -2,6 +2,28 @@ var cryptoList = document.querySelector("#crypto-list");
 var coinData;
 var coinURL  = "https://api.coinranking.com/v2/coins?limit=3&timePeriod=30d";
 
+function addCoins(coins){
+    for(let i =0; i<coins.length; i++){
+
+        var price = parseFloat(coins[i].price);
+
+        var listItem = document.createElement('li');
+        listItem.value = i + 1; 
+        var coinInfo = document.createTextNode(coins[i].name + ' $ ' + price.toFixed(2) +'       ');
+        listItem.addEventListener("click", function(){
+            var coinName = coins[i].name;
+            console.log(coinName);
+        })
+        listItem.append(coinInfo);
+        cryptoList.append(listItem);
+    }}
+
+
+
+
+
+
+
 async function getCoinsList(){
 
     try
@@ -14,11 +36,11 @@ async function getCoinsList(){
         }
 
         var data = await response.json();
-        setTimeout(function() {
+        
             coinData = data.data.coins;
-            console.log("testtttttttttttttttttttttttttttttttttttttttttttttttttt");
-            }, 8000);
-            return data;
+            // console.log();
+            addCoins(coinData);
+        ;
               
     }catch (error)
     {
@@ -29,29 +51,8 @@ async function getCoinsList(){
 
 getCoinsList();
 
-// function getCoinsList() {
-//     fetch(coinURL)
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error(`Error! Status: ${response.status}`);
-//             }
-//             return response.json();
-//         })
-//         .then(data => {
-
-//             setTimeout(function() {
-//             coinData = data.data.coins;
-//             }, 20000);
-
-//             console.log(coinData[1].name);
-//         })
-//         .catch(error => {
-//             console.log("Fetching error:", error);
-//         });
-// }
 
 
-
-console.log(coinData[1].name);
+// console.log(coinData[1].name);
 
 

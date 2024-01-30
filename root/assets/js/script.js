@@ -172,7 +172,7 @@ function renderPrice(el, collection, id) {
     console.log(data);
     console.log(el);
     // return price data to global variable currentNFTPrice
-    el.textContent = data.price.current.value + " " + data.price.current.currency;
+    el.textContent = data.price.current.value/Math.pow(10, data.price.current.decimals) + " " + data.price.current.currency;
   })
   .catch(err => console.error(err));
   

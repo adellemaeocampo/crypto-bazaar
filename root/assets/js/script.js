@@ -169,10 +169,15 @@ function renderPrice(el, collection, id) {
     return response.json();
   })
   .then(function (data) {
-    console.log(data);
-    console.log(el);
+    // console.log(data);
+    // console.log(el);
     // return price data to global variable currentNFTPrice
-    el.textContent = data.price.current.value/Math.pow(10, data.price.current.decimals) + " " + data.price.current.currency;
+    if (typeof data.price != "undefined") {
+      el.textContent = data.price.current.value/Math.pow(10, data.price.current.decimals) + " " + data.price.current.currency;      
+    } else {
+      el.textContent = "";
+    }
+    
   })
   .catch(err => console.error(err));
   

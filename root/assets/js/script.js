@@ -11,7 +11,6 @@ const getPriceOfNFTURL = "https://api.opensea.io/api/v2/listings/collection/"
 // Elements
 const nftCollectionRankingEl = document.getElementById("nft");
 const walletEl = document.getElementById("wallet");
-const nftEl = document.getElementById("nft");
 
 // Global variables
 var nftCollectionsRankingByVolume = [];
@@ -203,22 +202,25 @@ function renderTop3CollectionRankingByVolumeIn1Day() {
       var str = "nft-" + i;
       var collectionEl = document.getElementById(str);
       collectionEl.innerHTML = "";
+      
+      // set contract address to get NFTs later
+      collectionEl.setAttribute("data-contract", element.contract_address);
 
-      //
+      // display banner logo
       var section1El = document.createElement('section');
-      var h31El = document.createElement('h3');
+      var imgEl = document.createElement('img');
       section1El.classList = 'container flex bg-cyan-100';
-      h31El.textContent = element.name + " #" + element.identifier;
-      section1El.appendChild(h31El);
-      nftEl.appendChild(section1El);
+      imgEl.src = element.banner_url;
+      section1El.appendChild(imgEl);
+      collectionEl.appendChild(section1El);
 
-      //
+      // display name of collection
       var section2El = document.createElement('section');
       var h32El = document.createElement('h3');
       section2El.classList = 'container flex bg-red-100';
-      h32El.textContent = element.collection;
+      h32El.textContent = element.contract_name;
       section2El.appendChild(h32El);
-      nftEl.appendChild(section2El);
+      collectionEl.appendChild(section2El);
       // console.log(element);
       // var collection = {
       //   contract_address : element.contract_address,
@@ -238,7 +240,7 @@ function renderTop3CollectionRankingByVolumeIn1Day() {
 // render NFT collection
 function renderNFTPage() {
   //render top 3 collections ranking by volume in 1 day
-  
+  renderTop3CollectionRankingByVolumeIn1Day();
   //render 10NFTs for each collection
 }
 // renderNFTwallet render the list of NFT from the object wallet.
@@ -306,42 +308,3 @@ function renderNFTwallet() {
 
 }
 
-function init() {
-  // wallet.clearAllNFTs();
-  // console.log(wallet);
-  //getCollectionRankingByVolume();
-
-  // NFT test data for display in wallet, need to be deleted when buying feature is implemented.
-  nft = {
-    collection : "boredapegolfclub-altava",
-    contract : "0xa4871fee6118387959d4c935a91095c99081b7e5",
-    dayPurchased : "",
-    identifier : "7522",
-    name : "BAGC #7522",
-    price : {currency: '', decimals: 0, value: ''},
-    token_standard : "erc721",
-    image_url : "https://bagc-resource.s3.ap-northeast-2.amazonaws.com/images/bagc/7522.png",
-  }
-  wallet.saveNFT(nft);
-  
-  nft = {
-    collection : "rarible",
-    contract : "0xd07dc4262bcdbf85190c01c996b4c06a461d2430",
-    dayPurchased : "",
-    identifier : "22",
-    name : "souls_are_NFTs",
-    price : {currency: '', decimals: 0, value: ''},
-    token_standard : "erc1155",
-    image_url : "https://ipfs.daonomic.com/ipfs/QmfLfovcq2QKy4SpBLvrtNWSUqdf7DUhXB8BgZv8wcazL4",
-  };
-  wallet.saveNFT(nft);
-  
-  
-  
-  wallet.loadNFTs();
-  // console.log(wallet);
-  renderNFTwallet();
-
-};
-
-init();

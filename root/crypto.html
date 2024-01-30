@@ -3,48 +3,65 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>crypto and NFTs</title>
-    <link rel="stylesheet" type="text/css" href="" />
+    <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Cryptocurrency - Crypto Bazaar</title>
 
 </head>
 
-<body class="bg-slate-400">
-    <header class="flex items-center justify-between px-[2vw] py-[2vw] bg-white">
-        <img class="w-40 h-30" src="./crypto-bazaar-neon.png" alt="Crypto Bazaar Logo" />
-        <nav>
-            <ul class="flex font-bold gap-[5vw] text-slate-400">
+<body class="bg-white">
+    <header>
+        <nav class="flex items-center justify-between px-[15vw] py-[1vw] bg-white">
+            <section>
+                <a href="index.html"><img src="assets/images/crypto-bazaar-neon.png" alt="Crypto Bazaar Logo" class="w-[8vw]" id="header-logo"></a> 
+            </section> 
+
+            <ul class="flex font-bold text-slate-400 gap-[5vw]" id="nav-links">
                 <li>
-                    <a href="">Crypto</a>
+                    <a href="crypto.html">Crypto</a>
                 </li>
+
                 <li>
-                    <a href="">NFTs</a>
+                    <a href="nft.html">NFT's</a>
                 </li>
-                <li class="pr-[1vw]">
-                    <a href="">My Wallet</a>
+
+                <li>
+                    <a href="wallet.html">My Wallet</a>
                 </li>
             </ul>
+
+            <div class="pr-[1vw]">
+                <input class="p-[1vw] border-none hover:bg-slate-100 rounded" type="text" placeholder="Search..">
+            </div>
         </nav>
-
-
-        <div class="pr-[1vw]">
-            <input class="p-[1vw] border-none hover:bg-slate-100 rounded" type="text" placeholder="Search..">
-        </div>
+        <hr>
     </header>
 
-    <main class="flex-col px-[10%] bg-slate-400 text-white">
-        <div>
-            <h2 class="font-bold pb-[1%] pt-[5%] text-xl"> Crypto </h2>
-            <p>Crypto paragraph</p>
-        </div>
+    <main class="container mx-auto px-[10vw] py-[2vw]">
 
-        <container>
-            <h2 class="font-bold pb-[1%] pt-[5%] text-xl">Top Crypto Chart</h2>
-            <ol id="crypto-list">
-                
-            </ol> 
-        </container>
+        <section class="container" id="crypto">
+
+            <section class="container">
+                <h2 class="text-2xl font-bold">Explore Cryptocurrency</h2>
+                <p>View the latest and widest range of Cryptocurrency available on the market today.</p>
+                <hr class="mt-[1vw] mb-[2vw]">
+            </section>
+            
+            <section class="container flex">
+                <section class="container flex bg-cyan-100">
+                    <h3>ETH</h3>
+                </section>
+                <section class="container flex bg-red-100">
+                    <h3>Ethereum</h3>
+                </section>
+                <section class="container flex bg-yellow-100">
+                    <h3>$2,223.33</h3>
+                </section>
+                <section class="container flex bg-green-100">
+                    <h3>Graph</h3>
+                </section>
+            </section>
+        </section>
     </main>
     <script src="./assets/js/crypto.js"></script>
 </body>

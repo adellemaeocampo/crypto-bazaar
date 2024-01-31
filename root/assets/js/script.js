@@ -69,6 +69,25 @@ var wallet = {
     return -1;
   },
   
+  // removeNFT(address, id) remove an NFT from the NFTs and localStorage, return true/false.
+  removeNFT : function(address, id) {
+    // check if NFT has been existed, If no, return true.
+    var index = this._checkNFTDuplicate(address, id);
+    if (index < 0) {
+      return true;
+    } else {
+      this.NFTs.slice(index, 1);
+    }
+
+    // save to localStorage
+    try {
+      localStorage.setItem('NFTs', JSON.stringify(this.NFTs));
+      return true;
+    } catch(e) {
+      return false;
+    };
+  },
+
   // saveNFT gets NFT and save NFT to NFTs in localStorage after transform to string.
   // return false/true if it failed/success to save to localStorage
   saveNFT : function(nft) {

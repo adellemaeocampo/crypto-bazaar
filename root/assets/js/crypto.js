@@ -47,8 +47,27 @@ function addSections (coins){
 
         var listGraph = document.createElement("section");
         listGraph.classList.add("container", "flex", "bg-green-100");
-        listGraph.textContent = "Grath";
+        listGraph.textContent = "Graph";
         line.append(listGraph);
+        console.log(coins[i].sparkline);
+
+        var canvas = document.createElement("canvas");
+        canvas.id = coins[i].name;
+        listGraph.append(canvas);
+        
+
+        new Chart(coins[i].name, {
+            type: "line",
+            data: {
+              labels: coins[i].sparkline.map((_, index) => index + 1),
+              datasets: [{
+                backgroundColor:"rgba(0,0,255,1.0)",
+                borderColor: "rgba(0,0,255,0.1)",
+                data: coins[i].sparkline
+              }]
+            },
+            
+          });
 
     }
 

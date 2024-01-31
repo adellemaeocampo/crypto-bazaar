@@ -6,11 +6,14 @@ const NFTsLimit = 5;
 const getNFTByContractURL = "https://api.opensea.io/api/v2/chain/";
 
 // https://api.opensea.io/api/v2/listings/collection/{collection_slug}/nfts/{identifier}/best
-const getPriceOfNFTURL = "https://api.opensea.io/api/v2/listings/collection/"
+const getPriceOfNFTURL = "https://api.opensea.io/api/v2/offers/collection/"
 
 // Elements
 const nftCollectionRankingEl = document.getElementById("nft");
 const walletEl = document.getElementById("wallet");
+const nft1 = document.getElementById("nft-1");
+const nft2 = document.getElementById("nft-2");
+const nft3 = document.getElementById("nft-3");
 
 // Global variables
 var nftCollectionsRankingByVolume = [];
@@ -171,11 +174,11 @@ function renderPrice(el, collection, id) {
     return response.json();
   })
   .then(function (data) {
-    // console.log(data);
-    // console.log(el);
+    console.log(data);
+    console.log(el);
     // return price data to global variable currentNFTPrice
     if (typeof data.price != "undefined") {
-      el.textContent = data.price.current.value/Math.pow(10, data.price.current.decimals) + " " + data.price.current.currency;      
+      el.textContent = data.price.value/Math.pow(10, data.price.decimals) + " " + data.price.currency;      
     } else {
       el.textContent = "";
     }
@@ -185,11 +188,10 @@ function renderPrice(el, collection, id) {
   
 }
 
-// getCollectionRankingByVolume return data to global variable nftCollectionsRankingByVolume with
-// contract_address, contract_name, logo_url, items_total, volume_1d, volume_change_1d, market_cap
-function getCollectionRankingByVolume() {
+// render top 3 collections ranking by volume in 1 day
+function renderTop3CollectionRankingByVolumeIn1Day() {
   const options = {method: 'GET', headers: {accept: 'application/json', 'x-api-key': 'nRneSF8mGcK2LHkhbPKszsvz'}};
-  var url = 'https://restapi.nftscan.com/api/v2/statistics/ranking/collection?sort_field=volume_1d&sort_direction=desc';
+  var url = 'https://restapi.nftscan.com/api/v2/statistics/ranking/collection?sort_field=volume_1d&sort_direction=desc&limit=3';
 
   fetch(url, options)
   .then(function (response) {
@@ -199,21 +201,105 @@ function getCollectionRankingByVolume() {
     console.log(data.data);
     for (let index = 0; index < data.data.length; index++) {
       const element = data.data[index];
-      // console.log(element);
-      var collection = {
-        contract_address : element.contract_address,
-        contract_name : element.contract_name,
-        logo_url : element.logo_url,
-        items_total : element.items_total,
-        volume_1d : element.volume_1d,
-        volume_change_1d : element.volume_change_1d,
-        market_cap : element.market_cap,
-      };
+      var i = index + 1;
+      var str = "nft-" + i;
+      var collectionEl = document.getElementById(str);
+      collectionEl.innerHTML = "";
+      
+      // set contract address to get NFTs later
+      collectionEl.setAttribute("data-contract", element.contract_address);
 
-      nftCollectionsRankingByVolume.push(collection);
+      // display banner logo
+      var section1El = document.createElement('section');
+      var imgEl = document.createElement('img');
+      section1El.classList = 'container flex bg-cyan-100';
+      imgEl.src = element.banner_url;
+      section1El.appendChild(imgEl);
+      collectionEl.appendChild(section1El);
+
+      // display name of collection
+      var section2El = document.createElement('section');
+      var h32El = document.createElement('h3');
+      section2El.classList = 'container flex bg-red-100';
+      h32El.textContent = element.contract_name;
+      section2El.appendChild(h32El);
+      collectionEl.appendChild(section2El);
+      
+      render10NFTs(nft1);
+      render10NFTs(nft2);
+      render10NFTs(nft3);
     };
   });
 };
+
+// render 10 NFTs for each collection
+function render10NFTs(el) {
+  // get 10 NFTs
+  // var nft1 = document.getElementById("nft-1");
+  var contract = el.getAttribute("data-contract");
+  const options = {method: 'GET', headers: {accept: 'application/json', 'x-api-key': '0c9e93e867e640e081971469d0447097'}};
+    var url = 'https://api.opensea.io/api/v2/chain/ethereum/contract/' + contract + "/nfts?limit=" + 10;
+
+    fetch(url, options)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data.nfts);
+      // render 10 NFTs
+      for (let index = 0; index < data.nfts.length; index++) {
+        const element = data.nfts[index];
+        var nftEl = document.createElement('section');
+        //nftWalletEl.appendChild(nftEl);
+        // console.log(nftEl);
+        nftEl.classList = 'container flex flex-row gap-2';
+        nftEl.setAttribute("data-contract", element.contract);
+        nftEl.setAttribute("data-identifier", element.identifier);
+        nftEl.setAttribute("data-token_standard", element.token_standard);
+        el.appendChild(nftEl);
+
+        //
+        var section1El = document.createElement('section');
+        var h31El = document.createElement('h3');
+        section1El.classList = 'container flex bg-cyan-100';
+        h31El.textContent = element.name + " #" + element.identifier;
+        section1El.appendChild(h31El);
+        nftEl.appendChild(section1El);
+
+        // //
+        // var section2El = document.createElement('section');
+        // var h32El = document.createElement('h3');
+        // section2El.classList = 'container flex bg-red-100';
+        // h32El.textContent = element.collection;
+        // section2El.appendChild(h32El);
+        // nftEl.appendChild(section2El);
+
+        //
+        var section3El = document.createElement('section');
+        var h33El = document.createElement('h3');
+        section3El.classList = 'container flex bg-yellow-100';
+        renderPrice(h33El, element.collection, element.identifier);
+        section3El.appendChild(h33El);
+        nftEl.appendChild(section3El);
+
+        //
+        var section4El = document.createElement('section');
+        var imgEl = document.createElement('img');
+        section4El.classList = 'container flex bg-green-100';
+        imgEl.src = element.image_url;
+        imgEl.style.width = "37px";
+        section4El.appendChild(imgEl);
+        nftEl.appendChild(section4El);
+      };
+    });
+  
+}
+// // render NFT collection
+// function renderNFTPage() {
+//   //render top 3 collections ranking by volume in 1 day
+//   renderTop3CollectionRankingByVolumeIn1Day();
+//   //render 10NFTs for each collection
+// }
 
 // renderNFTwallet render the list of NFT from the object wallet.
 function renderNFTwallet() {
@@ -280,42 +366,3 @@ function renderNFTwallet() {
 
 }
 
-function init() {
-  // wallet.clearAllNFTs();
-  // console.log(wallet);
-  //getCollectionRankingByVolume();
-
-  // NFT test data for display in wallet, need to be deleted when buying feature is implemented.
-  nft = {
-    collection : "boredapegolfclub-altava",
-    contract : "0xa4871fee6118387959d4c935a91095c99081b7e5",
-    dayPurchased : "",
-    identifier : "7522",
-    name : "BAGC #7522",
-    price : {currency: '', decimals: 0, value: ''},
-    token_standard : "erc721",
-    image_url : "https://bagc-resource.s3.ap-northeast-2.amazonaws.com/images/bagc/7522.png",
-  }
-  wallet.saveNFT(nft);
-  
-  nft = {
-    collection : "rarible",
-    contract : "0xd07dc4262bcdbf85190c01c996b4c06a461d2430",
-    dayPurchased : "",
-    identifier : "22",
-    name : "souls_are_NFTs",
-    price : {currency: '', decimals: 0, value: ''},
-    token_standard : "erc1155",
-    image_url : "https://ipfs.daonomic.com/ipfs/QmfLfovcq2QKy4SpBLvrtNWSUqdf7DUhXB8BgZv8wcazL4",
-  };
-  wallet.saveNFT(nft);
-  
-  
-  
-  wallet.loadNFTs();
-  // console.log(wallet);
-  renderNFTwallet();
-
-};
-
-init();

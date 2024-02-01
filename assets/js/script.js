@@ -72,11 +72,35 @@ var wallet = {
     return -1;
   },
   
+  // removeNFT(address, id) remove an NFT from the NFTs and localStorage, return true/false.
+  removeNFT : function(address, id) {
+    // check if NFT has been existed, If no, return true.
+    var index = this._checkNFTDuplicate(address, id);
+    if (index < 0) {
+      return true;
+    } else {
+      this.NFTs.splice(index, 1);
+    }
+
+    // save to localStorage
+    try {
+      localStorage.setItem('NFTs', JSON.stringify(this.NFTs));
+      return true;
+    } catch(e) {
+      return false;
+    };
+  },
+
   // saveNFT gets NFT and save NFT to NFTs in localStorage after transform to string.
   // return false/true if it failed/success to save to localStorage
   saveNFT : function(nft) {
     // console.log(nft);
     // console.log(this.NFTs);
+
+    // check if id = null return false
+    if (nft.identifier == null) {
+      return false;
+    }
     // check if the NFT has been existed. If yes, return true.
     var index = this._checkNFTDuplicate(nft.contract, nft.identifier);
     if (index >= 0) {
@@ -174,8 +198,8 @@ function renderPrice(el, collection, id) {
     return response.json();
   })
   .then(function (data) {
-    console.log(data);
-    console.log(el);
+    // console.log(data);
+    // console.log(el);
     // return price data to global variable currentNFTPrice
     if (typeof data.price != "undefined") {
       el.textContent = data.price.value/Math.pow(10, data.price.decimals) + " " + data.price.currency; // Render price     
@@ -263,6 +287,9 @@ function render10NFTs(el) {
         nftEl.setAttribute("data-contract", element.contract);
         nftEl.setAttribute("data-identifier", element.identifier);
         nftEl.setAttribute("data-token_standard", element.token_standard);
+        nftEl.setAttribute("data-collection", element.collection);
+        nftEl.setAttribute("data-name", element.name);
+        nftEl.setAttribute("data-image_url", element.image_url);
         el.appendChild(nftEl);
 
         var section1El = document.createElement('section');
@@ -364,7 +391,15 @@ function renderNFTwallet() {
     var imgEl = document.createElement('img');
     section4El.classList = 'container flex bg-green-100';
     imgEl.src = element.image_url;
+    imgEl.style.width = "47px";
     section4El.appendChild(imgEl);
+    nftEl.appendChild(section4El);
+
+    // Add to wallet button
+    var buttonEl = document.createElement('button');
+    buttonEl.classList = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[200px] mt-[1vw]'
+    buttonEl.textContent = 'Remove From Wallet';
+    section4El.appendChild(buttonEl);
     nftEl.appendChild(section4El);
   };
 

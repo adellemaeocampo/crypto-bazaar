@@ -63,10 +63,13 @@ Copy code
         height: 50px !important;
         width: auto !important;
         padding-bottom: 10px !important;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 
     nav {
         padding-bottom: 10px !important;
+        margin-bottom: 10px;
     }
 
     container {
@@ -112,4 +115,28 @@ Copy code
         display: flex;
         flex-direction: column;
     }
+
+    p {
+        font-size: small;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .asset-sec {
+        padding-top: 15px;
+    }
+
+    li {
+        font-size: 15px;
+    }
+
+input {
+    padding: 3%;
+    margin-bottom: 5px !important;
+}
+
+h2 {
+    padding-top: 10px;
+}
+
 }

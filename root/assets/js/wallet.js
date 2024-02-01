@@ -6,9 +6,9 @@ nftWalletEl.addEventListener('click', function (event) {
   var element = event.target;
   // console.log(element);
   // console.log(element.parentElement);
-  if (element.matches("button") != true) {
-    var contract = element.parentElement.getAttribute("data-contract");
-    var identifier = element.parentElement.getAttribute("data-identifier");
+  if (element.matches("button") === true) {
+    var contract = element.parentElement.parentElement.getAttribute("data-contract");
+    var identifier = element.parentElement.parentElement.getAttribute("data-identifier");
     // console.log(contract);
 
     wallet.removeNFT(contract, identifier);

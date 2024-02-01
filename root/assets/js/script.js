@@ -394,6 +394,13 @@ function renderNFTwallet() {
     imgEl.style.width = "47px";
     section4El.appendChild(imgEl);
     nftEl.appendChild(section4El);
+
+    // Add to wallet button
+    var buttonEl = document.createElement('button');
+    buttonEl.classList = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[200px] mt-[1vw]'
+    buttonEl.textContent = 'Remove From Wallet';
+    section4El.appendChild(buttonEl);
+    nftEl.appendChild(section4El);
   };
 
 

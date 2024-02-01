@@ -6,7 +6,7 @@ This web application is a platform where individuals can buy crypto currencies a
 
 ## Usage
 
-To use our site, simply just navigate to the link, under [Link Section](#link) scroll through pages to find the currency or NTF you wish to buy click the add button and navigate to my wallet in the nav bar to see your purchase!
+To use our site, simply just navigate to the link, under [Link Section](#links) scroll through pages to find the currency or NTF you wish to buy click the add button and navigate to my wallet in the nav bar to see your purchase!
 
 Below youll find a video of our site
 

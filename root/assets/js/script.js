@@ -202,7 +202,7 @@ function renderPrice(el, collection, id) {
     // console.log(el);
     // return price data to global variable currentNFTPrice
     if (typeof data.price != "undefined") {
-      el.textContent = data.price.value/Math.pow(10, data.price.decimals) + " " + data.price.currency;      
+      el.textContent = data.price.value/Math.pow(10, data.price.decimals) + " " + data.price.currency; // Render price     
     } else {
       el.textContent = "";
     }
@@ -234,20 +234,27 @@ function renderTop3CollectionRankingByVolumeIn1Day() {
       collectionEl.setAttribute("data-contract", element.contract_address);
 
       // display banner logo
-      var section1El = document.createElement('section');
-      var imgEl = document.createElement('img');
-      section1El.classList = 'container flex bg-cyan-100';
-      imgEl.src = element.banner_url;
-      section1El.appendChild(imgEl);
-      collectionEl.appendChild(section1El);
+      // var section1El = document.createElement('section');
+      // var imgEl = document.createElement('img');
+      // section1El.classList = 'container flex';
+      // imgEl.src = element.banner_url;
+      // section1El.appendChild(imgEl);
+      // collectionEl.appendChild(section1El);
 
       // display name of collection
       var section2El = document.createElement('section');
       var h32El = document.createElement('h3');
-      section2El.classList = 'container flex bg-red-100';
-      h32El.textContent = element.contract_name;
+      section2El.classList = 'container flex text-2xl font-bold';
+      h32El.textContent = element.contract_name + " Collection";
       section2El.appendChild(h32El);
       collectionEl.appendChild(section2El);
+
+      // Create a new section for the HR
+      var sectionHrEl = document.createElement('section');
+      var hrEl = document.createElement('hr');
+      hrEl.classList = 'mb-[0.5vw]';
+      sectionHrEl.appendChild(hrEl);
+      collectionEl.appendChild(sectionHrEl);
       
       render10NFTs(nft1);
       render10NFTs(nft2);
@@ -285,34 +292,40 @@ function render10NFTs(el) {
         nftEl.setAttribute("data-image_url", element.image_url);
         el.appendChild(nftEl);
 
-        //
         var section1El = document.createElement('section');
-        var h31El = document.createElement('h3');
-        section1El.classList = 'container flex bg-cyan-100';
-        h31El.textContent = element.name + " #" + element.identifier;
-        section1El.appendChild(h31El);
+        var imgEl = document.createElement('img');
+        section1El.classList = 'container flex mr-[1vw]';
+        imgEl.src = element.image_url;
+        imgEl.style.width = "300px";
+        section1El.style.width = imgEl.style.width; // Set the width of section1El to match the image width
+        section1El.appendChild(imgEl);
         nftEl.appendChild(section1El);
 
-        //
         var section3El = document.createElement('section');
         var h33El = document.createElement('h3');
-        section3El.classList = 'container flex bg-yellow-100';
-        renderPrice(h33El, element.collection, element.identifier);
+        section3El.classList = 'container flex flex-col justify-center';
+        h33El.classList = 'font-bold text-xl';
+        h33El.textContent = " #" + element.identifier;
         section3El.appendChild(h33El);
+
+        var priceContainerEl = document.createElement('section');
+        priceContainerEl.classList = 'container flex';
+        renderPrice(priceContainerEl, element.collection, element.identifier);
+        section3El.appendChild(priceContainerEl);
         nftEl.appendChild(section3El);
 
-        //
-        var section4El = document.createElement('section');
-        var imgEl = document.createElement('img');
-        section4El.classList = 'container flex bg-green-100';
-        imgEl.src = element.image_url;
-        imgEl.style.width = "37px";
-        section4El.appendChild(imgEl);
-        nftEl.appendChild(section4El);
+        // Add to wallet button
+        var buttonEl = document.createElement('button');
+        buttonEl.classList = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[200px] mt-[1vw]'
+        buttonEl.textContent = 'Add To Wallet';
+        section3El.appendChild(buttonEl);
+        nftEl.appendChild(section3El);
+      
       };
     });
   
 }
+
 // // render NFT collection
 // function renderNFTPage() {
 //   //render top 3 collections ranking by volume in 1 day
@@ -385,4 +398,5 @@ function renderNFTwallet() {
 
 
 }
+
 

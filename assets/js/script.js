@@ -347,8 +347,9 @@ function render10NFTs(el) {
 function renderNFTwallet() {
   // get NFT wallet El
   var nftWalletEl = walletEl.lastElementChild.lastElementChild;
-  // console.log(walletEl);
-  // console.log(nftWalletEl);
+  
+  // reset total assets to recalculate it.
+  nftTotalAssets = 0;
 
   // reset HTML Element
   nftWalletEl.innerHTML = "";

@@ -12,8 +12,7 @@ nftWalletEl.addEventListener('click', function (event) {
     // console.log(contract);
 
     wallet.removeNFT(contract, identifier);
-    // reset total assets to recalculate it.
-    nftTotalAssets = 0;
+    
     renderNFTwallet();
   }
 });

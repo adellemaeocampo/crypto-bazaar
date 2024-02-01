@@ -18,7 +18,7 @@ nftCollectionRankingEl.addEventListener('click', function (event) {
     };
     
     if (wallet.saveNFT(nft)) {
-      element.parentElement.parentElement.firstElementChild.firstElementChild.classList.add("text-red");
+      element.parentElement.firstElementChild.classList.add("text-red-500");
     };
   }
 });

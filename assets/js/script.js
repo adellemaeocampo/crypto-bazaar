@@ -14,10 +14,12 @@ const walletEl = document.getElementById("wallet");
 const nft1 = document.getElementById("nft-1");
 const nft2 = document.getElementById("nft-2");
 const nft3 = document.getElementById("nft-3");
+const totalNFTsAssets = document.getElementById("total-nfts");
 
 
 // Global variables
 var nftCollectionsRankingByVolume = [];
+var nftTotalAssets = 0;
 var nft = {
   identifier : "",
   collection : "",
@@ -203,7 +205,10 @@ function renderPrice(el, collection, id) {
     // console.log(el);
     // return price data to global variable currentNFTPrice
     if (typeof data.price != "undefined") {
-      el.textContent = data.price.value/Math.pow(10, data.price.decimals) + " " + data.price.currency; // Render price     
+      el.textContent = data.price.value/Math.pow(10, data.price.decimals) + " " + data.price.currency; // Render price
+      nftTotalAssets = nftTotalAssets + data.price.value/Math.pow(10, data.price.decimals);
+      console.log(nftTotalAssets);
+      totalNFTsAssets.textContent = nftTotalAssets + " " + data.price.currency;
     } else {
       el.textContent = "";
     }
@@ -350,6 +355,7 @@ function renderNFTwallet() {
   };
 
   var nfts = wallet.loadNFTs();
+  // var nftTotalAssets = 0;
   // console.log(nfts);
   for (let index = 0; index < nfts.length; index++) {
     const element = nfts[index];
@@ -403,6 +409,8 @@ function renderNFTwallet() {
     section4El.appendChild(buttonEl);
     nftEl.appendChild(section4El);
   };
+
+
 
 
 }

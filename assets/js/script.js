@@ -15,6 +15,7 @@ const nft1 = document.getElementById("nft-1");
 const nft2 = document.getElementById("nft-2");
 const nft3 = document.getElementById("nft-3");
 
+
 // Global variables
 var nftCollectionsRankingByVolume = [];
 var nft = {

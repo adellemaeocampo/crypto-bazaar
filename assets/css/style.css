@@ -1,0 +1,115 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#nav-links li a:hover {
+    color: #4EC8ED; 
+    transition: all 0.3s ease 0s;
+}
+
+#header-logo:hover {
+    opacity: 75%;
+    transition: all 0.3s ease 0s;
+}
+
+.bg-image {
+    background-image: url("../../assets/images/henry-chen-x7clQSWhlfE-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center bottom 200px;
+}
+
+
+
+Copy code
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#nav-links li a:hover {
+    color: #4EC8ED; 
+    transition: all 0.3s ease 0s;
+}
+
+#header-logo:hover {
+    opacity: 75%;
+    transition: all 0.3s ease 0s;
+}
+
+.bg-image {
+    background-image: url("../../assets/images/henry-chen-x7clQSWhlfE-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center bottom 200px;
+}
+
+
+@media screen and (max-width: 600px) {
+    
+    .top-page {
+        flex-direction: column !important; 
+        align-items: center !important; 
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+
+    .logo-cb {
+        height: 50px !important;
+        width: auto !important;
+        padding-bottom: 10px !important;
+    }
+
+    nav {
+        padding-bottom: 10px !important;
+    }
+
+    container {
+        flex-direction: column !important; 
+        align-items: center !important; 
+    }
+    
+    
+    .bit-gif {
+        width: 200px;
+        padding-top: 30px !important;
+        padding-left: 0%;
+        padding-right: 0%;
+        margin: 0 auto;
+    }
+
+    .bg-image {
+        background-position: center center;
+    }
+
+
+    .wel-msg {
+        text-align: center;
+    }
+
+    body {
+        overflow-x: hidden !important;
+        
+    }
+
+    .info-sec{
+        flex-direction: column !important; 
+    }
+
+    .info-sec div {
+        padding-left: 0 !important; 
+        padding-right: 0 !important;
+        padding-bottom: 20px !important; 
+        
+    }
+
+    .wal-msg {
+        display: flex;
+        flex-direction: column;
+    }
+}

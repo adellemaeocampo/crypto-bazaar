@@ -79,7 +79,7 @@ var wallet = {
     if (index < 0) {
       return true;
     } else {
-      this.NFTs.slice(index, 1);
+      this.NFTs.splice(index, 1);
     }
 
     // save to localStorage
@@ -193,8 +193,8 @@ function renderPrice(el, collection, id) {
     return response.json();
   })
   .then(function (data) {
-    console.log(data);
-    console.log(el);
+    // console.log(data);
+    // console.log(el);
     // return price data to global variable currentNFTPrice
     if (typeof data.price != "undefined") {
       el.textContent = data.price.value/Math.pow(10, data.price.decimals) + " " + data.price.currency;      
@@ -275,6 +275,9 @@ function render10NFTs(el) {
         nftEl.setAttribute("data-contract", element.contract);
         nftEl.setAttribute("data-identifier", element.identifier);
         nftEl.setAttribute("data-token_standard", element.token_standard);
+        nftEl.setAttribute("data-collection", element.collection);
+        nftEl.setAttribute("data-name", element.name);
+        nftEl.setAttribute("data-image_url", element.image_url);
         el.appendChild(nftEl);
 
         //
@@ -284,14 +287,6 @@ function render10NFTs(el) {
         h31El.textContent = element.name + " #" + element.identifier;
         section1El.appendChild(h31El);
         nftEl.appendChild(section1El);
-
-        // //
-        // var section2El = document.createElement('section');
-        // var h32El = document.createElement('h3');
-        // section2El.classList = 'container flex bg-red-100';
-        // h32El.textContent = element.collection;
-        // section2El.appendChild(h32El);
-        // nftEl.appendChild(section2El);
 
         //
         var section3El = document.createElement('section');
@@ -378,6 +373,7 @@ function renderNFTwallet() {
     var imgEl = document.createElement('img');
     section4El.classList = 'container flex bg-green-100';
     imgEl.src = element.image_url;
+    imgEl.style.width = "47px";
     section4El.appendChild(imgEl);
     nftEl.appendChild(section4El);
   };

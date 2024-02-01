@@ -1,3 +1,28 @@
+// catch click on nftCollectionRankingEl page
+nftCollectionRankingEl.addEventListener('click', function (event) {
+    var element = event.target;
+    if (element.matches("button") != true) {
+      var nft = {
+        identifier : element.parentElement.getAttribute("data-identifier"),
+        collection : element.parentElement.getAttribute("data-collection"),
+        contract : element.parentElement.getAttribute("data-contract"),
+        token_standard : element.parentElement.getAttribute("data-token_standard"),
+        name : element.parentElement.getAttribute("data-name"),
+        dayPurchased : Date.now(),
+        price : {
+            "currency": "",
+            "decimals": 0,
+            "value": "",
+        },
+        image_url : element.parentElement.getAttribute("data-image_url"),
+      };
+      
+      if (wallet.saveNFT(nft)) {
+        element.parentElement.firstElementChild.firstElementChild.classList.add("text-red");
+      };
+    }
+  });
+
 function init() {
     
     renderTop3CollectionRankingByVolumeIn1Day();

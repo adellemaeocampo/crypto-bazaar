@@ -6,7 +6,7 @@ This web application is a platform where individuals can buy crypto currencies a
 
 ## Usage
 
-To use our site, simply just navigate to the link, under [Link Section](##link) scroll through pages to find the currency or NTF you wish to buy click the add button and navigate to my wallet in the nav bar to see your purchase!
+To use our site, simply just navigate to the link, under [Link Section](#links) scroll through pages to find the currency or NTF you wish to buy click the add button and navigate to my wallet in the nav bar to see your purchase!
 
 Below youll find a video of our site
 
@@ -17,10 +17,10 @@ LINK HERE
 
 The collaborators of the site are shown below: 
 
-- Matt Kelly: https://github.com/mattkellyirl
-- Dinh Nguyen: https://github.com/DinhN17
-- Molaligne Dafa: ADD LINK HERE
-- Adelle Ocampo: https://github.com/adellemaeocampo 
+- [Matt Kelly](https://github.com/mattkellyirl)
+- [Dinh Nguyen](https://github.com/DinhN17)
+- [Mola Dafa](https://github.com/Mola90)
+- [Adelle Ocampo](https://github.com/adellemaeocampo)
 
 
 ## Features
@@ -37,4 +37,4 @@ add our testing here
 
 ## Links
 
-link to Crypto Bazaar here: 
+link to [Crypto Bazaar](https://mattkellyirl.github.io/crypto-bazaar/)

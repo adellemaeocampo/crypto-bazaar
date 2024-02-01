@@ -96,6 +96,11 @@ var wallet = {
   saveNFT : function(nft) {
     // console.log(nft);
     // console.log(this.NFTs);
+
+    // check if id = null return false
+    if (nft.identifier == null) {
+      return false;
+    }
     // check if the NFT has been existed. If yes, return true.
     var index = this._checkNFTDuplicate(nft.contract, nft.identifier);
     if (index >= 0) {

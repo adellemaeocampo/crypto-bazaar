@@ -2,34 +2,95 @@ var cryptoList = document.querySelector("#crypto");
 var purchasedCoins = {}; 
 var coinData;
 var coinURL  = "https://api.coinranking.com/v2/coins?limit=3&timePeriod=30d";
-var wallet;
+var wallet = [];
 
 console.log('this is the first console call');
 
 
-//function adding sections to the page
-//takes in list of coins
+// Adds coins to a wallet and checks for duplicate coins
+// function addwallet (coin) {
+
+// console.log(coin.name + coin.price);
+
+// }
+
+
+
+
+function addWallet(coin){
+
+    
+
+    
+    if ((wallet.length) === 0){
+        // wallet is empty so add coin to wallet
+        wallet.push(coin);
+        console.log("this inside push");
+        
+    }
+    
+        //if wallet is not empty check to see if coin is in wall
+        // for (let j = 0; j < wallet.length; j++){
+        //     if (wallet){
+        //         //increament the quantity of the coins
+        //         console.log("this section should fire  because coin exists in wallet");
+        //         break;
+        //     }}
+            var isCoinInArray = wallet.some(function(obj) {
+                return Object.values(obj).includes(coin.name);
+              });
+
+              if (isCoinInArray){
+                console.log("coins is in  the array");
+              }
+              else{
+                console.log("coins is not!!!!!!! in the array");
+              }
+
+            wallet.push(coin);
+            //     console.log(wallet);
+
+
+            // for (let i = 0; i < wallet.length; i++){
+            // if (coin.name wallet[i].name){
+            //     // add coint to wallet
+            //     wallet.push(coin);
+                console.log(wallet);
+            //     break;
+            // }}
+            
+        
+
+    }
+
+
+
+
 
 
 //adding sections to our the crypto page and displays data.
 function addSections (coins){
-    console.log('first console call inside add section tabe before for loops');
-    console.log(coins[1].name);
-    console.log(coins[1].name);
+
 
 
     for (let i = 0; i < coins.length; i++){
-        console.log(coins[0].name);
-        console.log(coins[1].name);
-
+      
         var line = document.createElement("section");
         line.classList.add("container", "flex");
         cryptoList.append(line);
+        line.addEventListener("click",function(){
+            var coinName = coins[i];
+            // addwallet(coinName);
+            addWallet(coinName);
+
+        })
+        
         
         var listSymbol = document.createElement("section");
         listSymbol.classList.add("container", "flex", "bg-cyan-100");
         listSymbol.textContent = coins[i].symbol;
         line.append(listSymbol);
+        
 
 
         var listName = document.createElement("section");
@@ -42,14 +103,12 @@ function addSections (coins){
         listPrice.classList.add("container", "flex", "bg-yellow-100");
         listPrice.textContent = "$" + parseFloat(coins[i].price).toFixed(2);
         line.append(listPrice);
-        console.log("The add sections tab was successful."); 
 
 
         var listGraph = document.createElement("section");
         listGraph.classList.add("container", "flex", "bg-green-100");
         listGraph.textContent = "Graph";
         line.append(listGraph);
-        console.log(coins[i].sparkline);
 
         var canvas = document.createElement("canvas");
         canvas.id = coins[i].name;
@@ -78,25 +137,25 @@ function addSections (coins){
 
 // need to create a function that adds cooins to a list
 
-function addWallet(coin){
+// function addWallet(coin){
 
 
     
-    if (typeof wallet === undefined){
-        // wallet is empty so add coin to wallet
-    }
-    else 
-        //if wallet is not empty check to see if coin is in wall
-        for (let j = 0; j < wallet.length; j++){
-            if (coin.name === wallet[i].name){
-                //increament the quantity of the coins
-            }else{
-                // add coint to wallet
-            }
+//     if (typeof wallet === undefined){
+//         // wallet is empty so add coin to wallet
+//     }
+//     else 
+//         //if wallet is not empty check to see if coin is in wall
+//         for (let j = 0; j < wallet.length; j++){
+//             if (coin.name === wallet[i].name){
+//                 //increament the quantity of the coins
+//             }else{
+//                 // add coint to wallet
+//             }
             
-        }
+//         }
 
-    }
+//     }
 
 
 

@@ -3,7 +3,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Cryptocurrency - Crypto Bazaar</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" integrity="sha512-CQBWl4fJHWbryGE+Pc7UAxWMUMNMWzWxF4SQo9CgkJIN1kx6djDQZjh3Y8SZ1d+6I+1zze6Z7kHXO7q3UyZAWw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -12,32 +12,27 @@
 </head>
 
 <body class="bg-white">
-    <header>
-        <nav class="flex items-center justify-between px-[15vw] py-[1vw] bg-white">
-            <section>
-                <a href="index.html"><img src="assets/images/crypto-bazaar-neon.png" alt="Crypto Bazaar Logo" class="w-[8vw]" id="header-logo"></a> 
-            </section> 
-
-            <ul class="flex font-bold text-slate-400 gap-[5vw]" id="nav-links">
+    <header class="top-page flex items-center justify-between px-[15vw] py-[1vw]">
+        <a href="index.html"><img src="assets/images/crypto-bazaar-neon.png" alt="Crypto Bazaar Logo" class="logo-cb w-[8vw]" id="header-logo"></a> 
+        <nav>
+            <ul class="flex font-bold gap-[5vw] text-slate-400" id="nav-links">
                 <li>
                     <a href="crypto.html">Crypto</a>
                 </li>
-
                 <li>
                     <a href="nft.html">NFT's</a>
                 </li>
-
                 <li>
                     <a href="wallet.html">My Wallet</a>
                 </li>
             </ul>
-
-            <div class="pr-[1vw]">
-                <input class="p-[1vw] border-none hover:bg-slate-100 rounded" type="text" placeholder="Search..">
-            </div>
         </nav>
-        <hr>
+
+        <div class="pr-[1vw]">
+            <input class="p-[1vw] border-none hover:bg-slate-100 rounded" type="text" placeholder="Search..">
+        </div>
     </header>
+    <hr>
 
     <main class="container mx-auto px-[10vw] py-[2vw]">
 
@@ -48,7 +43,7 @@
                 <p>View the latest and widest range of Cryptocurrency available on the market today.</p>
                 <hr class="mt-[1vw] mb-[2vw]">
             </section>
-            
+
             <section class="container flex">
                 <section class="container flex bg-cyan-100">
                     <h3>ETH</h3>

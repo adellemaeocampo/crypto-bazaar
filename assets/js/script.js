@@ -206,9 +206,12 @@ function renderPrice(el, collection, id) {
     // return price data to global variable currentNFTPrice
     if (typeof data.price != "undefined") {
       el.textContent = data.price.value/Math.pow(10, data.price.decimals) + " " + data.price.currency; // Render price
-      nftTotalAssets = nftTotalAssets + data.price.value/Math.pow(10, data.price.decimals);
-      console.log(nftTotalAssets);
-      totalNFTsAssets.textContent = nftTotalAssets + " " + data.price.currency;
+      
+      if (totalNFTsAssets) {
+        nftTotalAssets = nftTotalAssets + data.price.value/Math.pow(10, data.price.decimals);
+        totalNFTsAssets.textContent = nftTotalAssets + " " + data.price.currency;        
+      };
+      
     } else {
       el.textContent = "";
     }
@@ -228,7 +231,7 @@ function renderTop3CollectionRankingByVolumeIn1Day() {
     return response.json();
   })
   .then(function (data) {
-    console.log(data.data);
+    // console.log(data.data);
     for (let index = 0; index < data.data.length; index++) {
       const element = data.data[index];
       var i = index + 1;
@@ -262,10 +265,11 @@ function renderTop3CollectionRankingByVolumeIn1Day() {
       sectionHrEl.appendChild(hrEl);
       collectionEl.appendChild(sectionHrEl);
       
-      render10NFTs(nft1);
-      render10NFTs(nft2);
-      render10NFTs(nft3);
+      
     };
+    render10NFTs(nft1);
+    render10NFTs(nft2);
+    render10NFTs(nft3);
   });
 };
 
@@ -282,7 +286,7 @@ function render10NFTs(el) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data.nfts);
+      // console.log(data.nfts);
       // render 10 NFTs
       for (let index = 0; index < data.nfts.length; index++) {
         const element = data.nfts[index];

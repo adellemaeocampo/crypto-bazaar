@@ -1,12 +1,12 @@
 // https://api.opensea.io/api/v2/collection/{collection name}/nfts?limit=5
-const getNFTsByCollectionURL = "https://api.opensea.io/api/v2/collection/"
+const getNFTsByCollectionURL = "https://api.opensea.io/api/v2/collection/";
 const NFTsLimit = 5;
 
 // https://api.opensea.io/api/v2/chain/{chain}/contract/{address}/nfts/{identifier}
 const getNFTByContractURL = "https://api.opensea.io/api/v2/chain/";
 
 // https://api.opensea.io/api/v2/listings/collection/{collection_slug}/nfts/{identifier}/best
-const getPriceOfNFTURL = "https://api.opensea.io/api/v2/offers/collection/"
+const getPriceOfNFTURL = "https://api.opensea.io/api/v2/offers/collection/";
 
 // Elements
 const nftCollectionRankingEl = document.getElementById("nft");
@@ -15,7 +15,6 @@ const nft1 = document.getElementById("nft-1");
 const nft2 = document.getElementById("nft-2");
 const nft3 = document.getElementById("nft-3");
 const totalNFTsAssetsEl = document.getElementById("total-nfts");
-
 
 // Global variables
 var nftCollectionsRankingByVolume = [];
@@ -40,27 +39,10 @@ var currentNFTPrice = {
   "value": "",
 };
 
-
 // Object: wallet keep track of NFTs and Coins which are the list of NFTs and coins in the wallet save to localstorage
 var wallet = {
   coins : [],
   NFTs : [],
-
-//  // element of NFTs
-//   NFT = {
-//     identifier : "",
-//     collection : "",
-//     contract : "",
-//     token_standard : "",
-//     name : "",
-//     dayPurchased : "",
-//     purchasedPrice : {
-//        "currency": "",
-//        "decimals": 0,
-//        "value": "",
-//      },
-//     image_url : "",
-//   }
 
   // _checkDuplicate: check if the NFT has been existed in the NFTs, return index of found duplicate or -1 if not found.
   _checkNFTDuplicate : function(address, id) {
@@ -77,6 +59,7 @@ var wallet = {
   
   // removeNFT(address, id) remove an NFT from the NFTs and localStorage, return true/false.
   removeNFT : function(address, id) {
+
     // check if NFT has been existed, If no, return true.
     var index = this._checkNFTDuplicate(address, id);
     if (index < 0) {
@@ -94,12 +77,9 @@ var wallet = {
     };
   },
 
-  // saveNFT gets NFT and save NFT to NFTs in localStorage after transform to string.
-  // return false/true if it failed/success to save to localStorage
+  // saveNFT gets NFT and save NFT to NFTs in localStorage after transform to string. return false/true if it failed/success to save to localStorage
   saveNFT : function(nft) {
-    // console.log(nft);
-    // console.log(this.NFTs);
-
+    
     // check if id = null return false
     if (nft.identifier == null) {
       return false;
@@ -169,10 +149,9 @@ function getNFTByContract(chain, address, identifier) {
       nft.contract = data.nft.contract;
       nft.token_standard = data.nft.token_standard;
       nft.name = data.nft.name;
-      //nft.dayPurchased = new Date()
     })
     .catch(err => console.error(err));
-}
+};
 
 // 
 function getPriceOfNFT(collection, identifier) {
@@ -185,11 +164,12 @@ function getPriceOfNFT(collection, identifier) {
   })
   .then(function (data) {
     console.log(data);
+
     // return price data to global variable currentNFTPrice
     currentNFTPrice = data.price.current;
   })
   .catch(err => console.error(err));
-}
+};
 
 //
 function renderPrice(el, collection, id) {
@@ -201,8 +181,7 @@ function renderPrice(el, collection, id) {
     return response.json();
   })
   .then(function (data) {
-    // console.log(data);
-    // console.log(el);
+  
     // return price data to global variable currentNFTPrice
     if (typeof data.price != "undefined") {
       el.textContent = data.price.value/Math.pow(10, data.price.decimals) + " " + data.price.currency; // Render price
@@ -219,7 +198,7 @@ function renderPrice(el, collection, id) {
   })
   .catch(err => console.error(err));
   
-}
+};
 
 // render top 3 collections ranking by volume in 1 day
 function renderTop3CollectionRankingByVolumeIn1Day() {
@@ -258,25 +237,25 @@ function renderTop3CollectionRankingByVolumeIn1Day() {
       section2El.appendChild(h32El);
       collectionEl.appendChild(section2El);
 
-      // Create a new section for the HR
+      // horizontal rule below collection name
       var sectionHrEl = document.createElement('section');
       var hrEl = document.createElement('hr');
-      hrEl.classList = 'mb-[0.5vw]';
+      hrEl.classList = 'mt-[1vw]';
       sectionHrEl.appendChild(hrEl);
       collectionEl.appendChild(sectionHrEl);
-      
-      
+
     };
+
     render10NFTs(nft1);
     render10NFTs(nft2);
     render10NFTs(nft3);
+
   });
 };
 
 // render 10 NFTs for each collection
 function render10NFTs(el) {
   // get 10 NFTs
-  // var nft1 = document.getElementById("nft-1");
   var contract = el.getAttribute("data-contract");
   const options = {method: 'GET', headers: {accept: 'application/json', 'x-api-key': '0c9e93e867e640e081971469d0447097'}};
     var url = 'https://api.opensea.io/api/v2/chain/ethereum/contract/' + contract + "/nfts?limit=" + 10;
@@ -286,62 +265,59 @@ function render10NFTs(el) {
       return response.json();
     })
     .then(function (data) {
-      // console.log(data.nfts);
       // render 10 NFTs
+      var nftRowsContainer = document.createElement('div'); // Container for both rows
+      nftRowsContainer.classList = 'container flex flex-row justify-between mt-[1vw] mb-[2vw] gap-4';
+
       for (let index = 0; index < data.nfts.length; index++) {
         const element = data.nfts[index];
         var nftEl = document.createElement('section');
-        //nftWalletEl.appendChild(nftEl);
-        // console.log(nftEl);
-        nftEl.classList = 'container flex flex-row gap-2';
+        var nftImgContainer = document.createElement('section'); // container for first row
+
+        nftEl.classList = 'flex';
         nftEl.setAttribute("data-contract", element.contract);
         nftEl.setAttribute("data-identifier", element.identifier);
         nftEl.setAttribute("data-token_standard", element.token_standard);
         nftEl.setAttribute("data-collection", element.collection);
         nftEl.setAttribute("data-name", element.name);
         nftEl.setAttribute("data-image_url", element.image_url);
-        el.appendChild(nftEl);
 
-        var section1El = document.createElement('section');
         var imgEl = document.createElement('img');
-        section1El.classList = 'container flex mr-[1vw]';
         imgEl.src = element.image_url;
-        imgEl.style.width = "300px";
-        section1El.style.width = imgEl.style.width; // Set the width of section1El to match the image width
-        section1El.appendChild(imgEl);
-        nftEl.appendChild(section1El);
+        imgEl.classList = "w-auto mb-[1vw]";
+        nftImgContainer.appendChild(imgEl);
+        nftEl.appendChild(nftImgContainer);
+        nftRowsContainer.appendChild(nftEl);
 
-        var section3El = document.createElement('section');
-        var h33El = document.createElement('h3');
-        section3El.classList = 'container flex flex-col justify-center';
-        h33El.classList = 'font-bold text-xl';
-        h33El.textContent = " #" + element.identifier;
-        section3El.appendChild(h33El);
+        var nftTitleEl = document.createElement('h3');
+        nftTitleEl.classList = "font-bold text-xl"
+        nftTitleEl.textContent = " #" + element.identifier;
+        nftImgContainer.appendChild(nftTitleEl);
+        nftEl.appendChild(nftImgContainer);
 
-        var priceContainerEl = document.createElement('section');
-        priceContainerEl.classList = 'container flex';
-        renderPrice(priceContainerEl, element.collection, element.identifier);
-        section3El.appendChild(priceContainerEl);
-        nftEl.appendChild(section3El);
+        var nftPriceEl = document.createElement('section');
+        renderPrice(nftPriceEl, element.collection, element.identifier);
+        nftImgContainer.appendChild(nftPriceEl);
+        nftEl.appendChild(nftImgContainer);
 
-        // Add to wallet button
         var buttonEl = document.createElement('button');
-        buttonEl.classList = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[200px] mt-[1vw]'
+        buttonEl.classList = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mt-[1vw]'
         buttonEl.textContent = 'Add To Wallet';
-        section3El.appendChild(buttonEl);
-        nftEl.appendChild(section3El);
-      
+        nftImgContainer.appendChild(buttonEl);
+        nftEl.appendChild(nftImgContainer);
+
+        // Create a new row after rendering 5 NFTs
+        if ((index + 1) % 5 === 0) {
+          el.appendChild(nftRowsContainer);
+          nftRowsContainer = document.createElement('section'); // container for second row
+          nftRowsContainer.classList = 'container flex flex-row justify-between mb-[2vw] gap-4';
+        }
+
+        // Append any remaining NFTs in the last row
+        el.appendChild(nftRowsContainer);
       };
     });
-  
-}
-
-// // render NFT collection
-// function renderNFTPage() {
-//   //render top 3 collections ranking by volume in 1 day
-//   renderTop3CollectionRankingByVolumeIn1Day();
-//   //render 10NFTs for each collection
-// }
+};
 
 // renderNFTwallet render the list of NFT from the object wallet.
 function renderNFTwallet() {
@@ -360,13 +336,11 @@ function renderNFTwallet() {
   };
 
   var nfts = wallet.loadNFTs();
-  // var nftTotalAssets = 0;
-  // console.log(nfts);
+  
   for (let index = 0; index < nfts.length; index++) {
     const element = nfts[index];
     var nftEl = document.createElement('section');
-    //nftWalletEl.appendChild(nftEl);
-    // console.log(nftEl);
+
     nftEl.classList = 'container flex';
     nftEl.setAttribute("data-contract", element.contract);
     nftEl.setAttribute("data-identifier", element.identifier);
@@ -414,10 +388,4 @@ function renderNFTwallet() {
     section4El.appendChild(buttonEl);
     nftEl.appendChild(section4El);
   };
-
-
-
-
-}
-
-
+};

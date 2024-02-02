@@ -209,7 +209,7 @@ function renderPrice(el, collection, id) {
       
       if (totalNFTsAssetsEl) {
         nftTotalAssets = nftTotalAssets + data.price.value/Math.pow(10, data.price.decimals);
-        totalNFTsAssetsEl.textContent = nftTotalAssets + " " + data.price.currency;        
+        totalNFTsAssetsEl.textContent = nftTotalAssets + " " + data.price.currency;              
       };
       
     } else {

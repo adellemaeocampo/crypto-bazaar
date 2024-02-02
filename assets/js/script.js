@@ -14,7 +14,7 @@ const walletEl = document.getElementById("wallet");
 const nft1 = document.getElementById("nft-1");
 const nft2 = document.getElementById("nft-2");
 const nft3 = document.getElementById("nft-3");
-const totalNFTsAssets = document.getElementById("total-nfts");
+const totalNFTsAssetsEl = document.getElementById("total-nfts");
 
 
 // Global variables
@@ -207,9 +207,9 @@ function renderPrice(el, collection, id) {
     if (typeof data.price != "undefined") {
       el.textContent = data.price.value/Math.pow(10, data.price.decimals) + " " + data.price.currency; // Render price
       
-      if (totalNFTsAssets) {
+      if (totalNFTsAssetsEl) {
         nftTotalAssets = nftTotalAssets + data.price.value/Math.pow(10, data.price.decimals);
-        totalNFTsAssets.textContent = nftTotalAssets + " " + data.price.currency;        
+        totalNFTsAssetsEl.textContent = nftTotalAssets + " " + data.price.currency;              
       };
       
     } else {
@@ -347,8 +347,9 @@ function render10NFTs(el) {
 function renderNFTwallet() {
   // get NFT wallet El
   var nftWalletEl = walletEl.lastElementChild.lastElementChild;
-  // console.log(walletEl);
-  // console.log(nftWalletEl);
+  
+  // reset total assets to recalculate it.
+  nftTotalAssets = 0;
 
   // reset HTML Element
   nftWalletEl.innerHTML = "";

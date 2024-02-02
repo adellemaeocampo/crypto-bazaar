@@ -1,7 +1,7 @@
 var nftWalletEl = walletEl.lastElementChild.lastElementChild;
 
 //
-// catch click on nftWallet
+// catch click on remove button on nftWallet page
 nftWalletEl.addEventListener('click', function (event) {
   var element = event.target;
   // console.log(element);

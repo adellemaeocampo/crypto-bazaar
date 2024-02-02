@@ -332,12 +332,24 @@ function renderNFTwallet() {
 
 
   if (wallet.NFTs.length === 0) {
+    totalNFTsAssetsEl.textContent = "0";
+
+    // display "Your NFT wallet is empty..."
+    var nftEl = document.createElement('section');
+    nftEl.classList = 'container flex';
+    nftWalletEl.appendChild(nftEl);
+
+    var h3El = document.createElement('h3');
+    h3El.innerHTML = 'Your NFT wallet is empty - <a href="nft.html" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Explore NFT\'s</a> to find NFT\'s to add to your wallet. ';
+    nftEl.appendChild(h3El);
+
     return;
   };
 
   var nfts = wallet.loadNFTs();
-  
-  for (let index = 0; index < nfts.length; index++) {
+  var length = nfts.length;
+
+  for (let index = 0; index < length; index++) {
     const element = nfts[index];
     var nftEl = document.createElement('section');
 

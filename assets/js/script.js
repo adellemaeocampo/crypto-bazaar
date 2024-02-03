@@ -184,7 +184,7 @@ function renderPrice(el, collection, id) {
   
     // return price data to global variable currentNFTPrice
     if (typeof data.price != "undefined") {
-      el.textContent = data.price.value/Math.pow(10, data.price.decimals) + " " + data.price.currency; // Render price
+      el.textContent = data.price.value/Math.pow(10, data.price.decimals) + "\u00A0" + data.price.currency; // Render price with non-breaking space
       
       if (totalNFTsAssetsEl) {
         nftTotalAssets = nftTotalAssets + data.price.value/Math.pow(10, data.price.decimals);
@@ -266,7 +266,7 @@ function render10NFTs(el) {
     })
     .then(function (data) {
       // render 10 NFTs
-      var nftRowsContainer = document.createElement('div'); // Container for both rows
+      var nftRowsContainer = document.createElement('section'); // container for both rows
       nftRowsContainer.classList = 'container flex flex-row justify-between mt-[1vw] mb-[2vw] gap-4';
 
       for (let index = 0; index < data.nfts.length; index++) {
@@ -284,18 +284,19 @@ function render10NFTs(el) {
 
         var imgEl = document.createElement('img');
         imgEl.src = element.image_url;
-        imgEl.classList = "w-auto mb-[1vw]";
+        imgEl.classList = "rounded-lg w-[20vw] mb-[1vw]";
         nftImgContainer.appendChild(imgEl);
         nftEl.appendChild(nftImgContainer);
         nftRowsContainer.appendChild(nftEl);
 
         var nftTitleEl = document.createElement('h3');
-        nftTitleEl.classList = "font-bold text-xl"
+        nftTitleEl.classList = "font-bold text-lg"
         nftTitleEl.textContent = " #" + element.identifier;
         nftImgContainer.appendChild(nftTitleEl);
         nftEl.appendChild(nftImgContainer);
 
         var nftPriceEl = document.createElement('section');
+        nftPriceEl.classList = "text-md"
         renderPrice(nftPriceEl, element.collection, element.identifier);
         nftImgContainer.appendChild(nftPriceEl);
         nftEl.appendChild(nftImgContainer);

@@ -202,7 +202,7 @@ function renderPrice(el, collection, id) {
 
 // render top 3 collections ranking by volume in 1 day
 function renderTop3CollectionRankingByVolumeIn1Day() {
-  const options = {method: 'GET', headers: {accept: 'application/json', 'x-api-key': 'nRneSF8mGcK2LHkhbPKszsvz'}};
+  const options = {method: 'GET', headers: {accept: 'application/json', 'x-api-key': '8yip240fXaUqPUn0qC3nbewQ'}};
   var url = 'https://restapi.nftscan.com/api/v2/statistics/ranking/collection?sort_field=volume_1d&sort_direction=desc&limit=3';
 
   fetch(url, options)

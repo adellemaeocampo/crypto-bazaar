@@ -8,6 +8,7 @@ const getNFTByContractURL = "https://api.opensea.io/api/v2/chain/";
 // https://api.opensea.io/api/v2/listings/collection/{collection_slug}/nfts/{identifier}/best
 const getPriceOfNFTURL = "https://api.opensea.io/api/v2/offers/collection/";
 
+
 // Elements
 const nftCollectionRankingEl = document.getElementById("nft");
 const walletEl = document.getElementById("wallet");
@@ -43,6 +44,25 @@ var currentNFTPrice = {
 var wallet = {
   coins : [],
   NFTs : [],
+
+  //saveCoin
+  saveCoins : function() {
+    try {
+      localStorage.setItem('Coins', JSON.stringify(this.coins));
+      return true;
+    } catch(e) {
+      return false;
+    }; 
+  },
+
+  //loadCoins
+  loadCoins : function() {
+    if (localStorage.getItem("Coins") != null) {
+      //  get string from Coins in localStorage and transform back to array of objects.
+      this.coins = JSON.parse(localStorage.getItem("Coins"));           
+  };
+  return this.NFTs;
+  },
 
   // _checkDuplicate: check if the NFT has been existed in the NFTs, return index of found duplicate or -1 if not found.
   _checkNFTDuplicate : function(address, id) {
@@ -117,6 +137,14 @@ var wallet = {
       };
       localStorage.removeItem("NFTs");
   },
+
+  // clearAll clears the array coins and coins in localStorage
+  clearAllCoins : function() {
+    if (this.coins.length != 0) {
+        this.coins.length = 0;
+    };
+    localStorage.removeItem("NFTs");
+},
 };
 
 

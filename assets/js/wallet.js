@@ -12,12 +12,12 @@ nftWalletEl.addEventListener('click', function (event) {
     
     function removeNFTAlert() {
       var alertEl = document.createElement("div");
-      alertEl.innerHTML = `<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert" style="width: 500px;">
-          <strong class="font-bold">Remove NFT from Wallet!</strong>
-          <p>Are you sure you want to remove this NFT from the wallet? All of your data will be permanently removed. This action cannot be undone.</p>
-          <div class="bg-green-100 text-green-700 px-4 py-3 rounded relative justify-center">
-          <button type="button" id="ok-button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Ok</button>
-          <button type="button" id="cancel-button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+      alertEl.innerHTML = `<div class="text-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert" style="width: 500px;">
+          <strong class="font-bold">Are you sure?</strong>
+          <p>This action will remove the item from your wallet, and cannot be undone.</p>
+          <div class="bg-red-100 text-red-700 px-4 py-3 rounded relative justify-center">
+          <button type="button" id="ok-button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Yes</button>
+          <button type="button" id="cancel-button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">No</button>
           </div>
           </div>`;
 

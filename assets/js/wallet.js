@@ -70,7 +70,7 @@ function printTowallet (coins){
 
     var h3El = document.createElement('h3');
     h3El.innerHTML = 'Your Crypto wallet is empty - <a href="crypto.html" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Explore Cryptocurrency</a> to find currency to add to your wallet. ';
-    nftEl.appendChild(h3El);
+    coinEl.appendChild(h3El);
 
     return;
   };

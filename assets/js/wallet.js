@@ -54,6 +54,85 @@ nftWalletEl.addEventListener('click', function (event) {
   }
 });
 
+//print wallet found in local storage to wallet
+function printTowallet (coins){
+
+  var coinWalletEl = walletEl.firstElementChild.lastElementChild;
+  coinWalletEl.innerHTML = "";
+  
+  for (let index = 0; index < coins.length; index++) {
+    const element = coins[index];
+
+    var line = document.createElement("section");
+    line.classList.add("container", "flex");
+    // line.setAttribute("data-contract", element.contract);
+    // line.setAttribute("data-identifier", element.identifier);
+    // line.setAttribute("data-token_standard", element.token_standard);
+    coinWalletEl.append(line);
+  
+    var iconCont = document.createElement("section");
+    iconCont.classList.add("container", "flex");
+    var iconImg = document.createElement("img");
+    iconImg.src = element.iconUrl; 
+    iconImg.classList.add("w-[2vw]");
+    iconCont.append(iconImg);
+    line.append(iconCont); 
+
+    var listSymbol = document.createElement("section");
+    listSymbol.classList.add("container", "flex", "items-center", "text-lg", "font-bold");
+    listSymbol.textContent = element.symbol;
+    line.append(listSymbol);
+    
+    var listName = document.createElement("section");
+    listName.classList.add("container", "flex", "items-center", "text-lg", "font-bold");
+    listName.textContent = element.name;
+    line.append(listName);
+
+    var listPrice = document.createElement("section");
+    listPrice.classList.add("container", "flex", "items-center", "text-md");
+    listPrice.textContent = "$" + parseFloat(element.price).toFixed(2);
+    line.append(listPrice);
+
+    // var listGraph = document.createElement("section");
+    // listGraph.classList.add("container", "flex");
+    // listGraph.textContent = "";
+    // line.append(listGraph);
+
+    // var canvas = document.createElement("canvas");
+    // canvas.classList.add("bg-white-100")
+    // canvas.id = element.name;
+    // listGraph.append(canvas);
+    
+    // new Chart(element.name, {
+    //     type: "line",
+    //     data: {
+    //         labels: element.sparkline.map((_, index) => (index + 1)),
+    //         datasets: [{
+    //             backgroundColor: "rgba(0, 0, 255, 1.0)",
+    //             borderColor: "rgba(0, 0, 255, 0.1)",
+    //             data: element.sparkline
+    //         }]
+    //     }
+    // });
+
+    var buttonCont = document.createElement("section");
+    buttonCont.classList.add("container", "flex", "items-center", "ml-[4vw]");
+    var button = document.createElement("button");
+    button.classList.add("bg-blue-500", "hover:bg-blue-700", "text-white", "font-bold", "py-2", "px-4", "rounded", "w-[10vw]", "h-[5vh]");
+    button.textContent = "Remove from Wallet";
+    button.addEventListener("click", function(){
+        var coin = coins;
+        
+
+    });
+    buttonCont.append(button);
+    line.append(buttonCont);
+
+  };
+  
+
+};
+
 function init() {
     // wallet.clearAllNFTs();
     // console.log(wallet);
@@ -84,7 +163,9 @@ function init() {
     // };
     // wallet.saveNFT(nft);
     
-    
+    wallet.loadCoins();
+
+    printTowallet(wallet.coins);
     
     wallet.loadNFTs();
     // console.log(wallet);

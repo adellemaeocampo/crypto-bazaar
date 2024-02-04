@@ -46,13 +46,22 @@ var wallet = {
   NFTs : [],
 
   //saveCoin
-  saveCoin : function() {
+  saveCoins : function() {
     try {
       localStorage.setItem('Coins', JSON.stringify(this.coins));
       return true;
     } catch(e) {
       return false;
     }; 
+  },
+
+  //loadCoins
+  loadCoins : function() {
+    if (localStorage.getItem("Coins") != null) {
+      //  get string from Coins in localStorage and transform back to array of objects.
+      this.coins = JSON.parse(localStorage.getItem("Coins"));           
+  };
+  return this.NFTs;
   },
 
   // _checkDuplicate: check if the NFT has been existed in the NFTs, return index of found duplicate or -1 if not found.
@@ -128,6 +137,14 @@ var wallet = {
       };
       localStorage.removeItem("NFTs");
   },
+
+  // clearAll clears the array coins and coins in localStorage
+  clearAllCoins : function() {
+    if (this.coins.length != 0) {
+        this.coins.length = 0;
+    };
+    localStorage.removeItem("NFTs");
+},
 };
 
 

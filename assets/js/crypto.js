@@ -187,11 +187,12 @@ function addSections (coins){
         button.addEventListener("click", function(){
             var coin = coins[i];
             console.log(coin);
+            wallet.loadCoins();
             addCoinsWallet(coin);
             // printTowallet(coin);
 
             // localStorage.setItem('wallet', JSON.stringify(wallet));
-            wallet.saveCoin();
+            wallet.saveCoins();
             
 
         });

@@ -186,10 +186,12 @@ function addSections (coins){
         button.textContent = "Add To Wallet";
         button.addEventListener("click", function(){
             var coin = coins[i];
+            console.log(coin);
             addCoinsWallet(coin);
-            printTowallet(coin);
+            // printTowallet(coin);
 
-            localStorage.setItem('wallet', JSON.stringify(wallet));
+            // localStorage.setItem('wallet', JSON.stringify(wallet));
+            wallet.saveCoin();
             
 
         });

@@ -45,6 +45,16 @@ var wallet = {
   coins : [],
   NFTs : [],
 
+  //saveCoin
+  saveCoin : function() {
+    try {
+      localStorage.setItem('Coins', JSON.stringify(this.coins));
+      return true;
+    } catch(e) {
+      return false;
+    }; 
+  },
+
   // _checkDuplicate: check if the NFT has been existed in the NFTs, return index of found duplicate or -1 if not found.
   _checkNFTDuplicate : function(address, id) {
     if (this.NFTs.length > 0) {

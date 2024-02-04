@@ -60,6 +60,24 @@ function printTowallet (coins){
   var coinWalletEl = walletEl.firstElementChild.lastElementChild;
   coinWalletEl.innerHTML = "";
   
+  if (coins.length === 0) {
+    // totalNFTsAssetsEl.textContent = "0";
+
+    // display "Your Coins wallet is empty..."
+    var coinEl = document.createElement('section');
+    coinEl.classList = 'container flex';
+    coinWalletEl.appendChild(coinEl);
+
+    var h3El = document.createElement('h3');
+    h3El.innerHTML = 'Your Crypto wallet is empty - <a href="crypto.html" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Explore Cryptocurrency</a> to find currency to add to your wallet. ';
+    coinEl.appendChild(h3El);
+
+    return;
+  };
+
+  var sumCoinsValue = 0;
+  totalCoinsAssetsEl.textContent = sumCoinsValue;
+
   for (let index = 0; index < coins.length; index++) {
     const element = coins[index];
 
@@ -88,10 +106,19 @@ function printTowallet (coins){
     listName.textContent = element.name;
     line.append(listName);
 
+    var listQuantity = document.createElement("section");
+    listQuantity.classList.add("container", "flex", "items-center", "text-lg");
+    listQuantity.textContent = element.quantity;
+    line.append(listQuantity);
+
     var listPrice = document.createElement("section");
     listPrice.classList.add("container", "flex", "items-center", "text-md");
     listPrice.textContent = "$" + parseFloat(element.price).toFixed(2);
     line.append(listPrice);
+
+    sumCoinsValue += element.quantity * element.price;
+
+    totalCoinsAssetsEl.textContent = "$" + parseFloat(sumCoinsValue).toFixed(2);
 
     // var listGraph = document.createElement("section");
     // listGraph.classList.add("container", "flex");
@@ -121,7 +148,50 @@ function printTowallet (coins){
     button.classList.add("bg-blue-500", "hover:bg-blue-700", "text-white", "font-bold", "py-2", "px-4", "rounded", "w-[10vw]", "h-[5vh]");
     button.textContent = "Remove from Wallet";
     button.addEventListener("click", function(){
-        var coin = coins;
+        // var coin = coins;
+        // wallet.sellCoin(element.symbol, 1);
+        // console.log(element);
+        function removeCoinAlert() {
+          var alertEl = document.createElement("div");
+          alertEl.innerHTML = `<div class="text-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert" style="width: 500px;">
+              <strong class="font-bold">Are you sure?</strong>
+              <p>This action will remove the item from your wallet, and cannot be undone.</p>
+              <div class="bg-red-100 text-red-700 px-4 py-3 rounded relative justify-center">
+              <button type="button" id="ok-button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Yes</button>
+              <button type="button" id="cancel-button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">No</button>
+              </div>
+              </div>`;
+              
+    
+          alertEl.style.position = "fixed";
+          alertEl.style.top = "50%";
+          alertEl.style.left = "50%";
+          alertEl.style.transform = "translate(-50%, -50%)";
+    
+          document.body.appendChild(alertEl);
+    
+          var okButton = alertEl.querySelector("#ok-button");
+          okButton.addEventListener("click", function () {
+            wallet.removeCoin(element.symbol);
+            
+            alertEl.remove();
+
+            printTowallet(wallet.coins);
+              // console.log(nftIDEl);
+              // nftIDEl.classList.add("text-red-500");
+          });
+    
+          var cancelButton = alertEl.querySelector("#cancel-button");
+          cancelButton.addEventListener("click", function () {
+            alertEl.remove();
+              // console.log(nftIDEl);
+              // nftIDEl.classList.add("text-red-500");
+          });
+        };
+    
+        removeCoinAlert();
+    
+      
         
 
     });
@@ -134,7 +204,7 @@ function printTowallet (coins){
 };
 
 function init() {
-    // wallet.clearAllNFTs();
+    // wallet.clearAllCoins();
     // console.log(wallet);
     //getCollectionRankingByVolume();
   

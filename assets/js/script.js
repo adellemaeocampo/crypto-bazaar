@@ -16,6 +16,7 @@ const nft1 = document.getElementById("nft-1");
 const nft2 = document.getElementById("nft-2");
 const nft3 = document.getElementById("nft-3");
 const totalNFTsAssetsEl = document.getElementById("total-nfts");
+const totalCoinsAssetsEl = document.getElementById("total-coins");
 
 // Global variables
 var nftCollectionsRankingByVolume = [];
@@ -45,7 +46,7 @@ var wallet = {
   coins : [],
   NFTs : [],
 
-  //saveCoin
+  // saveCoin
   saveCoins : function() {
     try {
       localStorage.setItem('Coins', JSON.stringify(this.coins));
@@ -53,6 +54,55 @@ var wallet = {
     } catch(e) {
       return false;
     }; 
+  },
+
+  // sell Coin
+  sellCoin : function(symbol, quantity) {
+
+    // get index of coin
+    var index = -1;
+    if (this.coins.length > 0) {
+      for (let i = 0; i < this.coins.length; i++) {
+        const element = this.coins[i];
+        if (element.symbol === symbol) {
+          index = i;
+        }
+      };
+    };
+    
+    if (index > 0) {
+      if (quantity < this.coins[index].quantity) {
+        this.coins[index].quantity = this.coins[index].quantity - quantity;
+        this.saveCoins() ;
+        return true;
+      } else {
+        this.removeCoin(symbol);
+      }
+    }
+    
+  },
+
+  // removeCoin
+  removeCoin : function(symbol) {
+    // get index of coin
+    var index = -1;
+    if (this.coins.length > 0) {
+      for (let i = 0; i < this.coins.length; i++) {
+        const element = this.coins[i];
+        if (element.symbol === symbol) {
+          index = i;
+        }
+      };
+    };
+
+    if (index < 0) {
+      return true;
+    } else {
+      this.coins.splice(index, 1);
+    }
+
+    // save to localStorage
+    this.saveCoins();
   },
 
   //loadCoins
@@ -216,7 +266,7 @@ function renderPrice(el, collection, id) {
       
       if (totalNFTsAssetsEl) {
         nftTotalAssets = nftTotalAssets + data.price.value/Math.pow(10, data.price.decimals);
-        totalNFTsAssetsEl.textContent = nftTotalAssets + " " + data.price.currency;              
+        totalNFTsAssetsEl.textContent = parseFloat(nftTotalAssets).toFixed(2) + " " + data.price.currency;              
       };
       
     } else {

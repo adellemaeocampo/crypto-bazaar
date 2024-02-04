@@ -89,26 +89,22 @@ function printTowallet (coins){
     coinWalletEl.append(line);
   
     var iconCont = document.createElement("section");
-    iconCont.classList.add("container", "flex");
     var iconImg = document.createElement("img");
+    iconCont.classList.add("container", "flex", "mr-[2vw]", "my-[1vw]");
     iconImg.src = element.iconUrl; 
-    iconImg.classList.add("w-[2vw]");
+    iconImg.style.width = "300px";
+    iconCont.style.width = iconImg.style.width;
     iconCont.append(iconImg);
-    line.append(iconCont); 
+    line.append(iconCont);
 
     var listSymbol = document.createElement("section");
     listSymbol.classList.add("container", "flex", "items-center", "text-lg", "font-bold");
-    listSymbol.textContent = element.symbol;
+    listSymbol.textContent = element.symbol + " / " + element.name;
     line.append(listSymbol);
-    
-    var listName = document.createElement("section");
-    listName.classList.add("container", "flex", "items-center", "text-lg", "font-bold");
-    listName.textContent = element.name;
-    line.append(listName);
 
     var listQuantity = document.createElement("section");
     listQuantity.classList.add("container", "flex", "items-center", "text-lg");
-    listQuantity.textContent = element.quantity;
+    listQuantity.textContent = "Quantity: " + element.quantity;
     line.append(listQuantity);
 
     var listPrice = document.createElement("section");
@@ -143,10 +139,10 @@ function printTowallet (coins){
     // });
 
     var buttonCont = document.createElement("section");
-    buttonCont.classList.add("container", "flex", "items-center", "ml-[4vw]");
+    buttonCont.classList.add("container", "flex", "items-center", "justify-end", "ml-[4vw]");
     var button = document.createElement("button");
-    button.classList.add("bg-blue-500", "hover:bg-blue-700", "text-white", "font-bold", "py-2", "px-4", "rounded", "w-[10vw]", "h-[5vh]");
-    button.textContent = "Remove from Wallet";
+    button.classList.add("bg-blue-500", "hover:bg-blue-700", "text-white", "font-bold", "py-2", "px-4", "rounded", "w-[200px]", "h-[5vh]");
+    button.innerHTML = "Remove&nbsp;From&nbsp;Wallet";
     button.addEventListener("click", function(){
         // var coin = coins;
         // wallet.sellCoin(element.symbol, 1);

@@ -8,6 +8,7 @@ const getNFTByContractURL = "https://api.opensea.io/api/v2/chain/";
 // https://api.opensea.io/api/v2/listings/collection/{collection_slug}/nfts/{identifier}/best
 const getPriceOfNFTURL = "https://api.opensea.io/api/v2/offers/collection/";
 
+
 // Elements
 const nftCollectionRankingEl = document.getElementById("nft");
 const walletEl = document.getElementById("wallet");

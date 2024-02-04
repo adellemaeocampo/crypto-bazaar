@@ -2,49 +2,142 @@ var cryptoList = document.querySelector("#crypto");
 var purchasedCoins = {}; 
 var coinData;
 var coinURL  = "https://api.coinranking.com/v2/coins?limit=8&timePeriod=30d";
-var wallet = [];
+// var wallet = [];
 
-function addWallet(coin){
+// function addWallet(coin){
 
-    if ((wallet.length) === 0){
-        // wallet is empty so add coin to wallet
-        wallet.push(coin);
-        console.log("this inside push");
-    }
+//     if ((wallet.length) === 0){
+//         // wallet is empty so add coin to wallet
+//         wallet.push(coin);
+//         console.log("this inside push");
+//     }
     
-        //if wallet is not empty check to see if coin is in wall
-        // for (let j = 0; j < wallet.length; j++){
-        //     if (wallet){
-        //         //increament the quantity of the coins
-        //         console.log("this section should fire  because coin exists in wallet");
-        //         break;
-        //     }}
-            var isCoinInArray = wallet.some(function(obj) {
-                return Object.values(obj).includes(coin.name);
-              });
+//         //if wallet is not empty check to see if coin is in wall
+//         // for (let j = 0; j < wallet.length; j++){
+//         //     if (wallet){
+//         //         //increament the quantity of the coins
+//         //         console.log("this section should fire  because coin exists in wallet");
+//         //         break;
+//         //     }}
+//             var isCoinInArray = wallet.some(function(obj) {
+//                 return Object.values(obj).includes(coin.name);
+//               });
 
-              if (isCoinInArray) {
-                console.log("coins is in  the array");
-              }
-              else {
-                console.log("coins is not!!!!!!! in the array");
-              }
+//               if (isCoinInArray) {
+//                 console.log("coins is in  the array");
+//               }
+//               else {
+//                 console.log("coins is not!!!!!!! in the array");
+//               }
 
-            wallet.push(coin);
-            //     console.log(wallet);
+//             wallet.push(coin);
+//             //     console.log(wallet);
 
 
-            // for (let i = 0; i < wallet.length; i++){
-            // if (coin.name wallet[i].name){
-            //     // add coint to wallet
-            //     wallet.push(coin);
-                console.log(wallet);
-            //     break;
-            // }}
+//             // for (let i = 0; i < wallet.length; i++){
+//             // if (coin.name wallet[i].name){
+//             //     // add coint to wallet
+//             //     wallet.push(coin);
+//                 console.log(wallet);
+//             //     break;
+//             // }}
             
         
 
+
+//     }
+
+//     //new add to wallet
+
+//     function addWallet(coin){
+
+
+
+    
+//         if ((wallet.coins.length) === 0){
+//             // wallet is empty so add coin to wallet
+//             wallet.push(coin);
+//             console.log("this inside push");
+            
+//         }
+        
+//             //if wallet is not empty check to see if coin is in wall
+//             // for (let j = 0; j < wallet.length; j++){
+//             //     if (wallet){
+//             //         //increament the quantity of the coins
+//             //         console.log("this section should fire  because coin exists in wallet");
+//             //         break;
+//             //     }}
+//                 var isCoinInArray = wallet.some(function(obj) {
+//                     return Object.values(obj).includes(coin.name);
+//                   });
+    
+//                   if (isCoinInArray){
+//                     console.log("coins is in  the array");
+//                   }
+//                   else{
+//                     console.log("coins is not!!!!!!! in the array");
+//                   }
+    
+//                 wallet.push(coin);
+//                 //     console.log(wallet);
+    
+    
+//                 // for (let i = 0; i < wallet.length; i++){
+//                 // if (coin.name wallet[i].name){
+//                 //     // add coint to wallet
+//                 //     wallet.push(coin);
+//                     console.log(wallet);
+//                 //     break;
+//                 // }}
+                
+            
+    
+//         }
+
+
+
+
+function addCoinsWallet (coins)
+{
+var matchfound = false;
+
+if (wallet.coins.length === 0){
+  
+    // push key/value term of wallet to coin and set value to 1.
+    coins.quantity ="1";
+    wallet.coins.push(coins);
+    console.log("wallet is empty so we just addaed a coin  " + coins);
+    
+    
+    
+}else{
+    for( let i =0; i < wallet.coins.length; i++){
+        if (wallet.coins[i].name === coins.name){
+            // increament name wallet[i].quantity by one
+            console.log("we have just increamented our coin");
+            wallet.coins[i].quantity++;
+            matchfound = true;
+            break;
+            // close the for loo here. we went through the whole wallet and could not find coin match
+        }}
+        //if coin is not there, we add coin. but how do I run it only if the for look fails
+        
+        if(!matchfound){
+
+            console.log("wallet is not empty and coin does not already exist in the wallet, so we are adding it to the wallet");
+            coins.quantity ="1";
+
+            wallet.coins.push(coins);
+            
+            
+        }
     }
+}
+
+
+
+    
 
 //adding sections to our the crypto page and displays data.
 function addSections (coins){
@@ -54,10 +147,10 @@ function addSections (coins){
         var line = document.createElement("section");
         line.classList.add("container", "flex");
         cryptoList.append(line);
-        line.addEventListener("click",function(){
-            var coinName = coins[i];
-            addWallet(coinName);
-        })
+        // line.addEventListener("click",function(){
+        //     var coinName = coins[i];
+        //     addWallet(coinName);
+        // })
 
         var iconCont = document.createElement("section");
         iconCont.classList.add("container", "flex");
@@ -109,6 +202,11 @@ function addSections (coins){
         var button = document.createElement("button");
         button.classList.add("bg-blue-500", "hover:bg-blue-700", "text-white", "font-bold", "py-2", "px-4", "rounded", "w-[10vw]", "h-[5vh]");
         button.textContent = "Add To Wallet";
+        button.addEventListener("click", function(){
+            var coin = coins[i];
+            addCoinsWallet(coin);
+
+        });
         buttonCont.append(button);
         line.append(buttonCont);
     }

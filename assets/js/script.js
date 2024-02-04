@@ -218,6 +218,8 @@ function renderTop3CollectionRankingByVolumeIn1Day() {
       var str = "nft-" + i;
       var collectionEl = document.getElementById(str);
       collectionEl.innerHTML = "";
+
+      console.log(data);
       
       // set contract address to get NFTs later
       collectionEl.setAttribute("data-contract", element.contract_address);
@@ -235,6 +237,7 @@ function renderTop3CollectionRankingByVolumeIn1Day() {
       var h32El = document.createElement('h3');
       section2El.classList = 'container flex text-2xl font-bold';
       h32El.textContent = element.contract_name + " Collection";
+      console.log(element.contract_name);
       section2El.appendChild(h32El);
       collectionEl.appendChild(section2El);
 
@@ -332,6 +335,11 @@ function renderNFTwallet() {
   // reset HTML Element
   nftWalletEl.innerHTML = "";
 
+  function formatCollectionName(name) {
+    let words = name.split('-');
+    words = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+    return words.join(' ');
+  };
 
   if (wallet.NFTs.length === 0) {
     totalNFTsAssetsEl.textContent = "0";
@@ -362,43 +370,38 @@ function renderNFTwallet() {
     nftWalletEl.appendChild(nftEl);
 
     //
+    var section3El = document.createElement('section');
+    var imgEl = document.createElement('img');
+    section3El.classList = 'container flex mr-[2vw] my-[1vw]';
+    imgEl.src = element.image_url;
+    imgEl.style.width = "300px";
+    imgEl.classList = 'rounded';
+    section3El.style.width = imgEl.style.width;
+    section3El.appendChild(imgEl);
+    nftEl.appendChild(section3El);
+
+    //
     var section1El = document.createElement('section');
     var h31El = document.createElement('h3');
-    section1El.classList = 'container flex bg-cyan-100';
-    h31El.textContent = element.name + " #" + element.identifier;
+    section1El.classList = 'container flex items-center text-lg font-bold mr-[2vw]';
+    h31El.textContent = formatCollectionName(element.collection) + " #" + element.identifier;
     section1El.appendChild(h31El);
     nftEl.appendChild(section1El);
 
     //
     var section2El = document.createElement('section');
     var h32El = document.createElement('h3');
-    section2El.classList = 'container flex bg-red-100';
-    h32El.textContent = element.collection;
+    section2El.classList = 'container flex items-center text-md mr-[2vw]';
+    renderPrice(h32El, element.collection, element.identifier);
     section2El.appendChild(h32El);
     nftEl.appendChild(section2El);
 
-    //
-    var section3El = document.createElement('section');
-    var h33El = document.createElement('h3');
-    section3El.classList = 'container flex bg-yellow-100';
-
-    renderPrice(h33El, element.collection, element.identifier);
-    section3El.appendChild(h33El);
-    nftEl.appendChild(section3El);
-
-    //
-    var section4El = document.createElement('section');
-    var imgEl = document.createElement('img');
-    section4El.classList = 'container flex bg-green-100';
-    imgEl.src = element.image_url;
-    imgEl.style.width = "47px";
-    section4El.appendChild(imgEl);
-    nftEl.appendChild(section4El);
-
     // Add to wallet button
+    var section4El = document.createElement('section');
+    section4El.classList = 'container flex items-center justify-end';
     var buttonEl = document.createElement('button');
-    buttonEl.classList = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[200px] mt-[1vw]'
-    buttonEl.textContent = 'Remove From Wallet';
+    buttonEl.classList = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full h-[5vh]'
+    buttonEl.innerHTML = 'Remove&nbsp;From&nbsp;Wallet';
     section4El.appendChild(buttonEl);
     nftEl.appendChild(section4El);
   };

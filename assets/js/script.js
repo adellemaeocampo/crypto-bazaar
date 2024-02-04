@@ -16,6 +16,7 @@ const nft1 = document.getElementById("nft-1");
 const nft2 = document.getElementById("nft-2");
 const nft3 = document.getElementById("nft-3");
 const totalNFTsAssetsEl = document.getElementById("total-nfts");
+const totalCoinsAssetsEl = document.getElementById("total-coins");
 
 // Global variables
 var nftCollectionsRankingByVolume = [];
@@ -265,7 +266,7 @@ function renderPrice(el, collection, id) {
       
       if (totalNFTsAssetsEl) {
         nftTotalAssets = nftTotalAssets + data.price.value/Math.pow(10, data.price.decimals);
-        totalNFTsAssetsEl.textContent = nftTotalAssets + " " + data.price.currency;              
+        totalNFTsAssetsEl.textContent = parseFloat(nftTotalAssets).toFixed(2) + " " + data.price.currency;              
       };
       
     } else {

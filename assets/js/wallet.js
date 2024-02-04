@@ -75,6 +75,9 @@ function printTowallet (coins){
     return;
   };
 
+  var sumCoinsValue = 0;
+  totalCoinsAssetsEl.textContent = sumCoinsValue;
+
   for (let index = 0; index < coins.length; index++) {
     const element = coins[index];
 
@@ -113,6 +116,10 @@ function printTowallet (coins){
     listPrice.textContent = "$" + parseFloat(element.price).toFixed(2);
     line.append(listPrice);
 
+    sumCoinsValue += element.quantity * element.price;
+
+    totalCoinsAssetsEl.textContent = "$" + parseFloat(sumCoinsValue).toFixed(2);
+
     // var listGraph = document.createElement("section");
     // listGraph.classList.add("container", "flex");
     // listGraph.textContent = "";
@@ -144,6 +151,47 @@ function printTowallet (coins){
         // var coin = coins;
         // wallet.sellCoin(element.symbol, 1);
         // console.log(element);
+        function removeCoinAlert() {
+          var alertEl = document.createElement("div");
+          alertEl.innerHTML = `<div class="text-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert" style="width: 500px;">
+              <strong class="font-bold">Are you sure?</strong>
+              <p>This action will remove the item from your wallet, and cannot be undone.</p>
+              <div class="bg-red-100 text-red-700 px-4 py-3 rounded relative justify-center">
+              <button type="button" id="ok-button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Yes</button>
+              <button type="button" id="cancel-button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">No</button>
+              </div>
+              </div>`;
+              
+    
+          alertEl.style.position = "fixed";
+          alertEl.style.top = "50%";
+          alertEl.style.left = "50%";
+          alertEl.style.transform = "translate(-50%, -50%)";
+    
+          document.body.appendChild(alertEl);
+    
+          var okButton = alertEl.querySelector("#ok-button");
+          okButton.addEventListener("click", function () {
+            wallet.removeCoin(element.symbol);
+            
+            alertEl.remove();
+
+            printTowallet(wallet.coins);
+              // console.log(nftIDEl);
+              // nftIDEl.classList.add("text-red-500");
+          });
+    
+          var cancelButton = alertEl.querySelector("#cancel-button");
+          cancelButton.addEventListener("click", function () {
+            alertEl.remove();
+              // console.log(nftIDEl);
+              // nftIDEl.classList.add("text-red-500");
+          });
+        };
+    
+        removeCoinAlert();
+    
+      
         
 
     });
@@ -156,7 +204,7 @@ function printTowallet (coins){
 };
 
 function init() {
-    // wallet.clearAllNFTs();
+    // wallet.clearAllCoins();
     // console.log(wallet);
     //getCollectionRankingByVolume();
   

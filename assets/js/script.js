@@ -477,7 +477,7 @@ function renderNFTwallet() {
     var section4El = document.createElement('section');
     section4El.classList = 'container flex items-center justify-end';
     var buttonEl = document.createElement('button');
-    buttonEl.classList = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full h-[5vh]'
+    buttonEl.classList = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[200px] h-[5vh]'
     buttonEl.innerHTML = 'Remove&nbsp;From&nbsp;Wallet';
     section4El.appendChild(buttonEl);
     nftEl.appendChild(section4El);

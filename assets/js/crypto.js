@@ -94,7 +94,7 @@ if (wallet.coins.length === 0){
   
     coins.quantity ="1";
     wallet.coins.push(coins);
-    console.log("wallet is empty so we just addaed a coin  " + coins);
+    // console.log("wallet is empty so we just added a coin  " + coins);
 
 
     
@@ -103,7 +103,7 @@ if (wallet.coins.length === 0){
 }else{
     for( let i =0; i < wallet.coins.length; i++){
         if (wallet.coins[i].name === coins.name){
-            console.log("we have just increamented our coin");
+            // console.log("we have just incremented our coin");
             wallet.coins[i].quantity++;
             matchfound = true;
             break;
@@ -111,7 +111,7 @@ if (wallet.coins.length === 0){
         
         if(!matchfound){
 
-            console.log("wallet is not empty and coin does not already exist in the wallet, so we are adding it to the wallet");
+            // console.log("wallet is not empty and coin does not already exist in the wallet, so we are adding it to the wallet");
             coins.quantity ="1";
 
             wallet.coins.push(coins);
@@ -193,6 +193,35 @@ function addSections (coins){
 
             // localStorage.setItem('wallet', JSON.stringify(wallet));
             wallet.saveCoins();
+
+            if (wallet.saveCoins()) {
+                function walletAlert() {
+                  var alert = document.createElement("div");
+                  alert.innerHTML = `<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert" style="width: 500px;">
+                      <strong class="font-bold">Added To Wallet!</strong>
+                      <span class="block sm:inline">The item has been added to your wallet.</span>
+                      <span class="absolute top-0 bottom-0 right-0 px-4 py-3" role="button" id="closeButton">
+                          <svg class="fill-current h-6 w-6 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                      </span>
+                      </div>`;
+          
+                  alert.style.position = "fixed";
+                  alert.style.top = "50%";
+                  alert.style.left = "50%";
+                  alert.style.transform = "translate(-50%, -50%)";
+          
+                  document.body.appendChild(alert);
+          
+                  var closeButton = alert.querySelector("#closeButton");
+                  closeButton.addEventListener("click", function () {
+                      alert.remove();
+                    //.classList.add("text-red-500");
+                  });
+                };
+                
+                walletAlert();
+                
+              };
             
 
         });

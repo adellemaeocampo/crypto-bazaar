@@ -60,6 +60,21 @@ function printTowallet (coins){
   var coinWalletEl = walletEl.firstElementChild.lastElementChild;
   coinWalletEl.innerHTML = "";
   
+  if (coins.length === 0) {
+    // totalNFTsAssetsEl.textContent = "0";
+
+    // display "Your Coins wallet is empty..."
+    var coinEl = document.createElement('section');
+    coinEl.classList = 'container flex';
+    coinWalletEl.appendChild(coinEl);
+
+    var h3El = document.createElement('h3');
+    h3El.innerHTML = 'Your Crypto wallet is empty - <a href="crypto.html" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Explore Cryptocurrency</a> to find currency to add to your wallet. ';
+    nftEl.appendChild(h3El);
+
+    return;
+  };
+
   for (let index = 0; index < coins.length; index++) {
     const element = coins[index];
 
@@ -87,6 +102,11 @@ function printTowallet (coins){
     listName.classList.add("container", "flex", "items-center", "text-lg", "font-bold");
     listName.textContent = element.name;
     line.append(listName);
+
+    var listQuantity = document.createElement("section");
+    listQuantity.classList.add("container", "flex", "items-center", "text-lg");
+    listQuantity.textContent = element.quantity;
+    line.append(listQuantity);
 
     var listPrice = document.createElement("section");
     listPrice.classList.add("container", "flex", "items-center", "text-md");
@@ -121,7 +141,9 @@ function printTowallet (coins){
     button.classList.add("bg-blue-500", "hover:bg-blue-700", "text-white", "font-bold", "py-2", "px-4", "rounded", "w-[10vw]", "h-[5vh]");
     button.textContent = "Remove from Wallet";
     button.addEventListener("click", function(){
-        var coin = coins;
+        // var coin = coins;
+        // wallet.sellCoin(element.symbol, 1);
+        // console.log(element);
         
 
     });

@@ -45,7 +45,7 @@ var wallet = {
   coins : [],
   NFTs : [],
 
-  //saveCoin
+  // saveCoin
   saveCoins : function() {
     try {
       localStorage.setItem('Coins', JSON.stringify(this.coins));
@@ -53,6 +53,55 @@ var wallet = {
     } catch(e) {
       return false;
     }; 
+  },
+
+  // sell Coin
+  sellCoin : function(symbol, quantity) {
+
+    // get index of coin
+    var index = -1;
+    if (this.coins.length > 0) {
+      for (let i = 0; i < this.coins.length; i++) {
+        const element = this.coins[i];
+        if (element.symbol === symbol) {
+          index = i;
+        }
+      };
+    };
+    
+    if (index > 0) {
+      if (quantity < this.coins[index].quantity) {
+        this.coins[index].quantity = this.coins[index].quantity - quantity;
+        this.saveCoins() ;
+        return true;
+      } else {
+        this.removeCoin(symbol);
+      }
+    }
+    
+  },
+
+  // removeCoin
+  removeCoin : function(symbol) {
+    // get index of coin
+    var index = -1;
+    if (this.coins.length > 0) {
+      for (let i = 0; i < this.coins.length; i++) {
+        const element = this.coins[i];
+        if (element.symbol === symbol) {
+          index = i;
+        }
+      };
+    };
+
+    if (index < 0) {
+      return true;
+    } else {
+      this.coins.splice(index, 1);
+    }
+
+    // save to localStorage
+    this.saveCoins();
   },
 
   //loadCoins

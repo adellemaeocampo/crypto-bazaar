@@ -162,7 +162,6 @@ var wallet = {
         this.NFTs.push(nft);
     };
     // this.NFTs.push(nft);
-    // console.log(this.NFTs);
     try {
       localStorage.setItem('NFTs', JSON.stringify(this.NFTs));
       return true;
@@ -193,8 +192,8 @@ var wallet = {
     if (this.coins.length != 0) {
         this.coins.length = 0;
     };
-    localStorage.removeItem("NFTs");
-},
+    localStorage.removeItem("Coins");
+  },
 };
 
 
@@ -288,15 +287,13 @@ function renderTop3CollectionRankingByVolumeIn1Day() {
     return response.json();
   })
   .then(function (data) {
-    // console.log(data.data);
+    
     for (let index = 0; index < data.data.length; index++) {
       const element = data.data[index];
       var i = index + 1;
       var str = "nft-" + i;
       var collectionEl = document.getElementById(str);
       collectionEl.innerHTML = "";
-
-      console.log(data);
       
       // set contract address to get NFTs later
       collectionEl.setAttribute("data-contract", element.contract_address);
@@ -314,7 +311,7 @@ function renderTop3CollectionRankingByVolumeIn1Day() {
       var h32El = document.createElement('h3');
       section2El.classList = 'container flex text-2xl font-bold';
       h32El.textContent = element.contract_name + " Collection";
-      console.log(element.contract_name);
+      // console.log(element.contract_name);
       section2El.appendChild(h32El);
       collectionEl.appendChild(section2El);
 
@@ -324,13 +321,11 @@ function renderTop3CollectionRankingByVolumeIn1Day() {
       hrEl.classList = 'mt-[1vw]';
       sectionHrEl.appendChild(hrEl);
       collectionEl.appendChild(sectionHrEl);
-
     };
 
     render10NFTs(nft1);
     render10NFTs(nft2);
     render10NFTs(nft3);
-
   });
 };
 
@@ -339,66 +334,66 @@ function render10NFTs(el) {
   // get 10 NFTs
   var contract = el.getAttribute("data-contract");
   const options = {method: 'GET', headers: {accept: 'application/json', 'x-api-key': '0c9e93e867e640e081971469d0447097'}};
-    var url = 'https://api.opensea.io/api/v2/chain/ethereum/contract/' + contract + "/nfts?limit=" + 10;
+  var url = 'https://api.opensea.io/api/v2/chain/ethereum/contract/' + contract + "/nfts?limit=" + 10;
 
-    fetch(url, options)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      // render 10 NFTs
-      var nftRowsContainer = document.createElement('section'); // container for both rows
-      nftRowsContainer.classList = 'container flex flex-row justify-between mt-[1vw] mb-[2vw] gap-4';
+  fetch(url, options)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    // render 10 NFTs
+    var nftRowsContainer = document.createElement('section'); // container for both rows
+    nftRowsContainer.classList = 'container flex flex-row justify-between mt-[1vw] mb-[2vw] gap-4';
 
-      for (let index = 0; index < data.nfts.length; index++) {
-        const element = data.nfts[index];
-        var nftEl = document.createElement('section');
-        var nftImgContainer = document.createElement('section'); // container for first row
+    for (let index = 0; index < data.nfts.length; index++) {
+      const element = data.nfts[index];
+      var nftEl = document.createElement('section');
+      var nftImgContainer = document.createElement('section'); // container for first row
 
-        nftEl.classList = 'flex';
-        nftEl.setAttribute("data-contract", element.contract);
-        nftEl.setAttribute("data-identifier", element.identifier);
-        nftEl.setAttribute("data-token_standard", element.token_standard);
-        nftEl.setAttribute("data-collection", element.collection);
-        nftEl.setAttribute("data-name", element.name);
-        nftEl.setAttribute("data-image_url", element.image_url);
+      nftEl.classList = 'flex';
+      nftEl.setAttribute("data-contract", element.contract);
+      nftEl.setAttribute("data-identifier", element.identifier);
+      nftEl.setAttribute("data-token_standard", element.token_standard);
+      nftEl.setAttribute("data-collection", element.collection);
+      nftEl.setAttribute("data-name", element.name);
+      nftEl.setAttribute("data-image_url", element.image_url);
 
-        var imgEl = document.createElement('img');
-        imgEl.src = element.image_url;
-        imgEl.classList = "rounded-lg w-[20vw] mb-[1vw]";
-        nftImgContainer.appendChild(imgEl);
-        nftEl.appendChild(nftImgContainer);
-        nftRowsContainer.appendChild(nftEl);
+      var imgEl = document.createElement('img');
+      imgEl.src = element.image_url;
+      imgEl.classList = "rounded-lg w-[20vw] mb-[1vw]";
+      nftImgContainer.appendChild(imgEl);
+      nftEl.appendChild(nftImgContainer);
+      nftRowsContainer.appendChild(nftEl);
 
-        var nftTitleEl = document.createElement('h3');
-        nftTitleEl.classList = "font-bold text-lg"
-        nftTitleEl.textContent = " #" + element.identifier;
-        nftImgContainer.appendChild(nftTitleEl);
-        nftEl.appendChild(nftImgContainer);
+      var nftTitleEl = document.createElement('h3');
+      nftTitleEl.classList = "font-bold text-lg"
+      nftTitleEl.textContent = " #" + element.identifier;
+      nftImgContainer.appendChild(nftTitleEl);
+      nftEl.appendChild(nftImgContainer);
 
-        var nftPriceEl = document.createElement('section');
-        nftPriceEl.classList = "text-md"
-        renderPrice(nftPriceEl, element.collection, element.identifier);
-        nftImgContainer.appendChild(nftPriceEl);
-        nftEl.appendChild(nftImgContainer);
+      var nftPriceEl = document.createElement('section');
+      nftPriceEl.classList = "text-md"
+      renderPrice(nftPriceEl, element.collection, element.identifier);
+      nftImgContainer.appendChild(nftPriceEl);
+      nftEl.appendChild(nftImgContainer);
 
-        var buttonEl = document.createElement('button');
-        buttonEl.classList = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mt-[1vw]'
-        buttonEl.textContent = 'Add To Wallet';
-        nftImgContainer.appendChild(buttonEl);
-        nftEl.appendChild(nftImgContainer);
+      var buttonEl = document.createElement('button');
+      buttonEl.classList = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mt-[1vw]'
+      buttonEl.textContent = 'Add To Wallet';
+      nftImgContainer.appendChild(buttonEl);
+      nftEl.appendChild(nftImgContainer);
 
-        // Create a new row after rendering 5 NFTs
-        if ((index + 1) % 5 === 0) {
-          el.appendChild(nftRowsContainer);
-          nftRowsContainer = document.createElement('section'); // container for second row
-          nftRowsContainer.classList = 'container flex flex-row justify-between mb-[2vw] gap-4';
-        }
-
-        // Append any remaining NFTs in the last row
+      // Create a new row after rendering 5 NFTs
+      if ((index + 1) % 5 === 0) {
         el.appendChild(nftRowsContainer);
-      };
-    });
+        nftRowsContainer = document.createElement('section'); // container for second row
+        nftRowsContainer.classList = 'container flex flex-row justify-between mb-[2vw] gap-4';
+      }
+
+      // Append any remaining NFTs in the last row
+      el.appendChild(nftRowsContainer);
+    };
+  });
 };
 
 // renderNFTwallet render the list of NFT from the object wallet.

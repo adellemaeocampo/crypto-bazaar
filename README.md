@@ -10,9 +10,10 @@ To use our site, simply just navigate to the link under [Link Section](#links).
 
 Scroll through the dedicated Crypto and NFT listing pages to find Crypto or NTF's that you wish to buy. Click the "Add to Wallet" button, to add the item to your own wallet. Navigate to your wallet through the link in the navigation bar to view your saved item/s.
 
-Below youll find a video of our site:
+Below youll find a picture of our site: 
 
-LINK HERE
+<img width="1470" alt="Screenshot 2024-02-05 at 4 13 41 pm" src="https://github.com/mattkellyirl/crypto-bazaar/assets/152781829/3a9e43c9-d0f9-4095-8bdb-d77f97fc072b">
+
 
 
 ## Credits

@@ -17,6 +17,10 @@ LINK HERE
 
 ## Credits
 
+HTML, CSS, JS powered by TailWind and Chart.JS.
+Crypto data is sourced from coinranking.com.
+NFT data is sourced from opensea.io and nftscan.com.
+
 The collaborators of the site are shown below: 
 
 - [Matt Kelly](https://github.com/mattkellyirl)

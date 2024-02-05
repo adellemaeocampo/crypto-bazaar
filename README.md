@@ -12,7 +12,7 @@ Scroll through the dedicated Crypto and NFT listing pages to find Crypto or NTF'
 
 Below youll find a video of our site:
 
-LINK HERE
+<img width="1470" alt="Screenshot 2024-02-05 at 4 13 41 pm" src="https://github.com/mattkellyirl/crypto-bazaar/assets/152781829/0c800d08-4299-4240-8dc6-c6e0ae1c6f21">
 
 
 ## Credits

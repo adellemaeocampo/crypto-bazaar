@@ -18,9 +18,9 @@ nftCollectionRankingEl.addEventListener('click', function (event) {
     };
 
     var nftIDEl = element.parentElement.firstElementChild.nextElementSibling;
-    // console.log(nftIDEl);
     
     if (wallet.saveNFT(nft)) {
+      // display alert to confirm before adding NFT to the wallet
       function walletAlert() {
         var alert = document.createElement("div");
         alert.innerHTML = `<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert" style="width: 500px;">
@@ -41,19 +41,17 @@ nftCollectionRankingEl.addEventListener('click', function (event) {
         var closeButton = alert.querySelector("#closeButton");
         closeButton.addEventListener("click", function () {
             alert.remove();
-            // console.log(nftIDEl);
             nftIDEl.classList.add("text-red-500");
         });
       };
-      
-      walletAlert();
-      
+   
+      walletAlert();      
     };
   };
 });
 
 function init() {
   renderTop3CollectionRankingByVolumeIn1Day();
-  };
+};
 
 init();
